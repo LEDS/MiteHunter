@@ -1,0 +1,1 @@
+INSERT INTO Amostra (experimento_id, data_amostra) VALUES (%s, %s)

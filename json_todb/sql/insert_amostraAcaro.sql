@@ -1,0 +1,1 @@
+INSERT INTO AmostraAcaro (acaro_id, amostra_id, qtd) VALUES (%s, %s, %s)

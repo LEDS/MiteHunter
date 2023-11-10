@@ -1,0 +1,14 @@
+[
+{
+    "comment"    : ["o canpo 'info'  armazena as informações basicas da amostra e 'amostra n' a contagem emtotal em cada amostragem"],
+    "info"       : ["sample_date", "experiment_id"],
+    "amostra"    : ["qnt_acaro1", "qnt_acaro2", "qnt_acaro3"] 
+    },
+
+
+{
+    "comment" : ["Below is an example of a return from an analysis of a sample"],
+    "info"       : ["2023-11-01", "1"],
+    "amostra"    : ["59", "46", "62"]
+    }
+]

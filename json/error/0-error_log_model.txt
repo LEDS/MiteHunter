@@ -1,0 +1,8 @@
+archive name: index-errorLog
+
+contain:
+    error code: GenericError, SpecificErro;
+    function that raise error: FunctionName, (File, Line)1, (File, Line)2, ...;
+    changes made: change1, change2, change3, ...;
+    error date: day-month-year;
+    error time: hour:minuts;
