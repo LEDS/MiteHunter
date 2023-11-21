@@ -1,5 +1,0 @@
-Error Code: Connection not established, 2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061), EXCEPTION IN (c:\Users\LEDS\Desktop\Morango\git2\json_todb\python_modules\mysql_connection.py, LINE 42 "connection = mysql.connector.connect(**self.conection_config())");
-Function Arising: insert_amostra, insert_amostra,EXCEPTION IN (c:\Users\LEDS\Desktop\Morango\git2\json_todb\python_modules\mysql_connection.py, LINE 42 "connection = mysql.connector.connect(**self.conection_config())");
-Changes Made: Nothing have change;
-Error Date: 10-11-2023;
-error time: 12:0001-01-01 00:00:00

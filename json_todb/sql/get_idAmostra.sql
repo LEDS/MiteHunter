@@ -1,1 +1,0 @@
-SELECT id FROM Amostra WHERE experimento_id = %s AND data_amostra = %s
