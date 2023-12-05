@@ -104,7 +104,6 @@ class JsonData:
 
     def check_json_data(self) -> bool:
         len_actual_line_as_dict = len(self._actual_line_as_dict[self._actual_line_dict_key])
-        print(self._actual_line_as_dict)
         
         if len_actual_line_as_dict == 2 and self._info_line:
             sample_date, experiment_id = self._actual_line_as_dict[self._actual_line_dict_key]

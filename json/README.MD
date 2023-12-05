@@ -1,0 +1,1 @@
+When processing a set of photos, the AI will return some files in JSON format. The folder "ai_output" is where these JSONs are stored; the folder "correct_db_update" contains the JSONs that were successfully uploaded to the database, and the "error" folder is where error logs and associated JSON files are kept.

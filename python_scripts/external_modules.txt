@@ -1,0 +1,6 @@
+Package                Version
+---------------------- -------
+mysql-connector-python 8.2.0
+pip                    23.2.1
+protobuf               4.21.12
+schedule               1.2.1

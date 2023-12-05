@@ -16,6 +16,9 @@ Error Date: {};"""  # This is a template to error log text
 
 
 class ErrorHandling:
+    """
+    Feature: performs error handling on expected common errors
+    """
     def __init__(self):
         self.index_error = int()
         self._exception_output = tuple()
@@ -86,7 +89,7 @@ class ErrorHandling:
         """
         Feature: move a json file to error folder
 
-        @return: True if performer correctly | the exception code when move file fails
+        @return: None if performer correctly | the exception code when move file fails
         """
 
         try:
@@ -115,8 +118,6 @@ class ErrorHandling:
     def get_execption_output(self):
         """
         feature: get information from error, like the error code that terminal returns when a python file is executed
-
-        @return: a string that contains error information to be used in error log
         """
 
         exc_type, exc_obj, tb = sys.exc_info()
@@ -131,6 +132,12 @@ class ErrorHandling:
         self._exception_output = (filename, line_number, command_error, exc_type, exc_obj)
 
     def get_correct_change_and_text_format(self) -> tuple[int, list]:
+        """
+        Feature: prepares an output that indicates what changes were made (data inserted into the database, files moved, etc)
+
+        @output: the first value of the tuple is the key to the possible change made; the second is text that will be written in case this change occurs
+        """
+
         text_format = [""]
         change = 0
 
@@ -138,7 +145,7 @@ class ErrorHandling:
             move_success = self.move_file_to_error_folder()
             text_format[0] = self.json_name
 
-            if move_success:  # In error cause, return to move_soccess != True
+            if move_success:
                 change = 1
                 text_format.append(move_success)
             else:
