@@ -1,83 +1,18 @@
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-import os
 from ultralytics import YOLO
 import cv2
 import threading
-import json
-from PIL import Image
-import datetime
-import time
+#import json
 
-model = YOLO('/home/carlos/Documentos/iniciacao_cientifica/Estudo_Yolo/runs/detect/train5_320e640/weights/best.pt')
-def make_json_file(arquivo_file, novos_dados):
-    """
-    Cria ou atualiza um arquivo JSON com os dados especificados.
+#import datetime
+#import time
+from utils.JsonCreation import make_json_file
+from utils.ImageMining import get_image_info
+import psutil
+import os
 
-    Args:
-        arquivo: Caminho do arquivo JSON.
-        novos_dados: Lista de dicionários a serem adicionados ao arquivo JSON.
-
-    Returns:
-        None.
-    """
-
-    # Adicione os novos dados a uma lista
-    data_existente = []  # Lista vazia para armazenar os dados existentes
-    observer.join()
-    try:
-        found = False
-        arquivo =  open(arquivo_file, 'r+')
-        # Tenta carregar os dados existentes
-        # Se houver um erro ao decodificar JSON (por exemplo, se o arquivo estiver vazio), inicia com um dicionário vazio
-        data_existente_dict = json.load(arquivo)
-        # Adicione os novos dados aos dados existentes
-        for i in range(len(data_existente_dict)):#change for while
-            if (novos_dados['imgOrig']) == (data_existente_dict[i]['imgOrig']):
-                found = True
-        if found == False:
-            data_existente_dict.append(novos_dados)
-            # Salva todos os dados
-            with open("Seumorangudo.json", "w") as f:
-                json.dump(data_existente_dict, f, indent=4)
-            arquivo.close()
-    except FileNotFoundError:
-            # Se o arquivo não for encontrado, cria um novo arquivo com os dados existentes
-            print("Arquivo não encontrado. Criando um novo arquivo com os dados existentes...")
-            data_existente.append(novos_dados)
-            with open(arquivo_file, 'w') as f:
-                json.dump(data_existente, f, indent=4)
-
-
-
-def get_image_info(image_path):
-    """
-    Recupera informações de uma imagem, incluindo dados EXIF e nome do arquivo.
-
-    Args:
-        image_path: Caminho da imagem.
-
-    Returns:
-        Um dicionário contendo as informações da imagem, incluindo:
-            - data: Data da imagem (se disponível nos dados EXIF, no formato YYYY:MM:DD HH:MM:SS).
-            - name: Nome do arquivo da imagem.
-    """
-    # Abra a imagem usando Pillow
-    image = Image.open(image_path)
-
-    stat = os.stat(image_path)
-
-    creation_time = stat.st_ctime
-    creation_date = datetime.datetime.fromtimestamp(creation_time)
-
-    data = creation_date.strftime("%d-%m-%Y")
-
-    path = os.path.abspath(image_path)
-
-    name = os.path.basename(path)
-
-
-    return {"data": data, "name": name}
+model = YOLO('model/best.pt')
 
 class ImgProcessor(threading.Thread):
     def __init__(self, image_path):
@@ -87,8 +22,7 @@ class ImgProcessor(threading.Thread):
         self.macropilis = 0
         self.rajado = 0
 
-    def run(self):
-        #print(f"Processando imagem: {self.image_path}")
+    def run(self):#remove json creation, this code only will really run the code, start aplication
 
         image = cv2.imread(self.image_path)
         image = cv2.resize(image, (640, 640))
@@ -139,33 +73,50 @@ class ImgProcessor(threading.Thread):
                 "data": image_info['data']
                 } #This is the paramethers from JSON
 
+
 class MyHandler(FileSystemEventHandler):
     def __init__(self):
         super().__init__()
         self.lock = threading.Lock()
+
+        # Calcule o número máximo de threads com base na RAM disponível (adapte conforme sua versão do psutil)
+        total_ram = psutil.virtual_memory().total
+        max_threads = int(total_ram * 0.5 / psutil.Process().memory_info().rss)  # Adapte caso não tenha rss_per_thread
+        self.semaphore = threading.Semaphore(max_threads)  # Crie o semáforo aqui
+
     def process_image_in_thread(self, image_path, previous_folder):
         img_processor = ImgProcessor(image_path)
-        with self.lock:
-            data = img_processor.run()
-            make_json_file("Seumorangudo.json", data)
-        os.rename(image_path, os.path.join("C:/Users/carlo/OneDrive/backups/Documentos2/Notebooks/Estudo_Yolo/dataset/processadas/", os.path.basename(image_path)))
 
+        # Perform image processing tasks outside the lock
+        data = img_processor.run()
+
+        # Adquira o semáforo antes de acessar o arquivo JSON
+        self.semaphore.acquire()
+
+        with self.lock:
+            make_json_file("Morango.json", data)
+            
+        # Libere o semáforo
+        self.semaphore.release()
+
+        os.rename(image_path, os.path.join("/home/carlos/Documentos/iniciacao_cientifica/Estudo_Yolo/dataset/", os.path.basename(image_path)))
 
     def on_modified(self, event):
         if event.event_type == "modified":
-            # wait x minutes
-            time.sleep(5)
+            # wait x minutes (implemente a lógica de espera aqui)
 
-            for image_path in os.listdir("C:/Users/carlo/OneDrive/backups/Documentos2/Notebooks/Estudo_Yolo/dataset/images/"):
-                full_image_path = "C:/Users/carlo/OneDrive/backups/Documentos2/Notebooks/Estudo_Yolo/dataset/images/" + image_path
+            for image_path in os.listdir("/home/carlos/Documentos/iniciacao_cientifica/Estudo_Yolo/dataset/amostras/nome_data_hora/"):
+                full_image_path = "/home/carlos/Documentos/iniciacao_cientifica/Estudo_Yolo/dataset/amostras/nome_data_hora/" + image_path
                 previous_folder = os.path.dirname(full_image_path)
 
                 thread = threading.Thread(target=self.process_image_in_thread, args=(full_image_path, previous_folder))
                 thread.start()
-
-
+                thread.join()#if remove infinite threads will be created
+              
 
 event_handler = MyHandler()
+
 observer = Observer()
-observer.schedule(event_handler, path='dataset/images', recursive=True)
+observer.schedule(event_handler, path='/home/carlos/Documentos/iniciacao_cientifica/Estudo_Yolo/dataset/amostras/nome_data_hora', recursive=True)
 observer.start()
+observer.join()
