@@ -1,0 +1,1 @@
+INSERT INTO Amostragem (data_Amos, cultivo_id) VALUES (%s, %s)
