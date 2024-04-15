@@ -1,0 +1,86 @@
+[tool.commitizen]
+name = "cz_customize"
+tag_format = "v$version"
+
+version_scheme = "semver"
+
+version = "0.8.1"
+
+update_changelog_on_bump = true
+
+major_version_zero = true
+
+version_files = [
+    ".cz.toml:version",
+    "package.json:version",
+    "README.MD:version",    
+]
+style = [
+    ["qmark", "fg:#ff9d00 bold"],
+    ["question", "bold"],
+    ["answer", "fg:#ff9d00 bold"],
+    ["pointer", "fg:#ff9d00 bold"],
+    ["highlighted", "fg:#ff9d00 bold"],
+    ["selected", "fg:#cc5454"],
+    ["separator", "fg:#cc5454"],
+    ["instruction", ""],
+    ["text", ""],
+    ["disabled", "fg:#858585 italic"]
+]
+
+[tool.commitizen.customize]
+message_template = "{{change_type}}(ORI-{{10000}}): #comment {{message}} {%if workflow_transition %} #{{workflow_transition_stage}} {% endif %}"
+schema = "<type>: <body>"
+schema_pattern = "(feature|fix|doc|refactor|ci|test|build):(\\s.*)"
+
+bump_pattern = "^(break|feature|fix|hotfix|refactor)"
+bump_map = {"break" = "MAJOR", "feature" = "MINOR", "fix" = "PATCH", "hotfix" = "PATCH"}
+change_type_order = ["BREAKING CHANGE", "feature", "fix", "refactor", "perf"]
+commit_parser = "^(?P<change_type>feature|fix|doc|refactor|ci|test|build):\\s(?P<message>.*)?"
+
+changelog_pattern = "^(feature|fix|doc|refactor|ci|test|build)?(!)?"
+
+change_type_map = {"feature" = "Feat", "fix" = "Fix", "doc"="Doc","refactor"="Refactor"}
+
+[[tool.commitizen.customize.questions]]
+type = "list"
+name = "change_type"
+choices = [
+    {value = "feature", name = "Feature: A new feature. Correlates with MINOR in SemVer"}, 
+    {value = "fix", name = "Fix: A bug fix. Correlates with PATCH in SemVer"},
+    {value = "hotfix", name = "Hot Fix: A bug fix on production environment. Correlates with PATCH in SemVer"},
+    {value = "doc", name = "Doc: Documenation only changes."},
+    {value = "refactor", name = "Refactor: A code change that neither fixes a bug nor adds a feature."},
+    {value = "test", name = "Test: Adding missing or correcting existing tests."},
+    {value = "build", name = "Build: Changes that affect the build system or external dependencies (example scopes: pip, docker, npm)."},
+    {value = "ci", name = "CI: Changes to our CI configuration files and scripts (example scopes: GitLabCI)."},
+    {value = "chore", name = "CHORE: Means nothing that an external user would see"},
+   ]
+
+message = "Select the type of change you are committing"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "message"
+message = "Comment:"
+
+[[tool.commitizen.customize.questions]]
+type = "input"
+name = "issue_key"
+message = "Issue key in Jira (only the number)"
+
+[[tool.commitizen.customize.questions]]
+type = "confirm"
+name = "workflow_transition"
+message = "Was there any Workflow transition?"
+
+[[tool.commitizen.customize.questions]]
+type = "list"
+name = "workflow_transition_stage"
+message = "Select the Workflow Transition"
+choices = [
+    {value = "doing", name = "Doing "},
+    {value = "review", name = "Review "},
+    {value = "testing", name = "Testing"},
+    {value = "closed", name = "Closed"}, 
+    ]

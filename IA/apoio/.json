@@ -1,0 +1,30 @@
+{
+    # inserir em amostragem
+      X  "data_Amos"
+      X  "cultivo_id"
+      ----------------
+      X  "classificacao_final" -> Retornar um "texto" falando em qual "classe" está (Mais de 10)
+      
+      X  "media_rajado_foliolo" -> numero
+      
+      X  "acao_sugerida" -> (jogar água, etc)
+
+      X  "qtd_total" -> numero de foliolos (quantidade de fotos)
+
+      X  "seis_a_nove" -> porcentagem
+      X  "mais_dez" -> porcentagem
+      X  "um_a_cinco" -> porcentagem
+
+      X  "sem_predador_rajado" -> porcentagem
+      X  "predador_sem_rajado" -> porcentagem
+      X  "com_predador_rajado" -> porcentagem
+
+    # inserir em folíolo
+      X  "amostragem_id"
+      X  "imgOrig"
+      X  "imgProc"
+      X  "qntRajado"
+      X  "qntMacropilis"
+      X  "qntCalifornicus"
+}
+
