@@ -1,0 +1,39 @@
+[
+ProcessedImage(user='fidelis@gmail.com_03042024_145758', 
+
+image=WindowsPath('images_processed/fidelis@gmail.com_03042024_145758/a-colony-of-two-spotted-spider-mites-tetranychus-urticae-adult-eggs-AH414C.jpg'), 
+
+counts=Counted(rajado=0, macropilis=0, californicus=0)),
+
+
+
+ProcessedImage(user='fidelis@gmail.com_03042024_145758', 
+
+image=WindowsPath('images_processed/fidelis@gmail.com_03042024_145758/CSIRO_ScienceImage_12_Tetranychus_urticae_Two_Spotted_Spider_Mite.jpg'), 
+
+counts=Counted(rajado=2, macropilis=0, californicus=1)), 
+
+
+
+ProcessedImage(user='fidelis@gmail.com_03042024_145758', 
+
+image=WindowsPath('images_processed/fidelis@gmail.com_03042024_145758/two-spotted-spider-mites-fig-1.jpg'), 
+
+counts=Counted(rajado=0, macropilis=0, californicus=1)), 
+
+/---------------------------------------------------------------------------------------------------------------------------------------/
+
+ProcessedImage(user='wilsiman.evangelista.ifes@gmail.com_20240129_125740', 
+
+image=WindowsPath('images_processed/wilsiman.evangelista.ifes@gmail.com_20240129_125740/by-pest-spider-mites__85590.original.jpg'), 
+
+counts=Counted(rajado=1, macropilis=0, californicus=0)),
+
+
+
+ProcessedImage(user='wilsiman.evangelista.ifes@gmail.com_20240129_125740', 
+
+image=WindowsPath('images_processed/wilsiman.evangelista.ifes@gmail.com_20240129_125740/spider mites.png'), 
+
+counts=Counted(rajado=2, macropilis=4, californicus=12))
+]

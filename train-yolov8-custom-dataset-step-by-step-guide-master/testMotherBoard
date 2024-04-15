@@ -1,5 +1,0 @@
-import torch
-if torch.cuda.is_available():
-    print("GPU is available for training.")
-else:
-    print("GPU is not available; training will proceed on CPU.")
