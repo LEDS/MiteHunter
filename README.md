@@ -31,8 +31,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/LEDS/MiteHunter">
+    <img src="https://github.com/othneildrew/Best-README-Template/blob/master/images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">MiteHunter</h3>
@@ -84,7 +84,7 @@
 <!-- ABOUT THE PROJECT -->
 ## Sobre o Projeto
 
-[![Budibase][product-screenshot]](https://example.com)
+[![Budibase][product-screenshot]]()
 
 Neste projeto, estamos desenvolvendo um sistema web inteligente para identificação de infestação por ácaros rajados (Tetranychus urticae) em culturas de morango, utilizando fotos capturadas por smartphones como entrada. Atualmente, nossa aplicação está hospedada em um contêiner Budibase no Docker e pode ser acessada via HTTP na porta 10000.
 
@@ -192,16 +192,16 @@ Projeto: [github.com/LEDS/MiteHunter](https://github.com/LEDS/MiteHunter/tree/ma
 [Docker-url]: https://www.docker.com/
 [Docker.js]: https://img.shields.io/static/v1?style=for-the-badge&message=Docker&color=2496ED&logo=Docker&logoColor=FFFFFF&label=
 
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/LEDS/MiteHunter.svg?style=for-the-badge
 [contributors-url]: https://github.com/LEDS/MiteHunter/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/LEDS/MiteHunter.svg?style=for-the-badge
 [forks-url]: https://github.com/LEDS/MiteHunter/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/LEDS/MiteHunter.svg?style=for-the-badge
 [stars-url]: https://github.com/LEDS/MiteHunter/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/LEDS/MiteHunter.svg?style=for-the-badge
 [issues-url]: https://github.com/LEDS/MiteHunter/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/LEDS/MiteHunter.svg?style=for-the-badge
 [license-url]: https://github.com/LEDS/MiteHunter/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/school/ledsifes/mycompany/verification/
-[product-screenshot]: https://github.com/LEDS/MiteHunter/blob/main/infra/Fotos/ExemploBudibase.png
+[product-screenshot]: infra/Fotos/ExemploBudibase.png
