@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'css/export_data_screen/main.css' %}">
+
+        <title> Exportar Dados </title>
+    </head>
+
+    <body>
+
+        <div class="Corpo">
+            <form action="/export_data/" method="post">
+                {% csrf_token %}
+                <button type="submit", name="export_data"> Exportar Dados </button>
+            </form>
+        </div>
+        
+    </body>
+
+    <footer>
+        <a href="https://github.com/chevitaresebruno" target="_blank"> Desenvolvedor: Bruno Chevitarese </a>
+    </footer>
+
+</html>

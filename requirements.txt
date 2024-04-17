@@ -1,0 +1,5 @@
+commitizen==3.22.0
+Django==5.0.4
+mysqlclient==2.2.4
+python-dotenv==1.0.1
+mysql-connector-python==8.3.0

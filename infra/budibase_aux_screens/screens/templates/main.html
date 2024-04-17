@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+        <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+        <title> Tela Principal </title>
+    </head>
+
+    <body>
+
+        <div class="Corpo">
+            <a href="{%url 'export_data'%}">
+            <button> Ir para Tela de Exportar Dados </button>
+            </a>
+            <button> Ir para Tela de Adicionar Imagens de Folíolos </button>
+        </div>
+        
+    </body>
+
+    <footer>
+        <a href="https://github.com/chevitaresebruno" target="_blank"> Desenvolvedor: Bruno Chevitarese </a>
+    </footer>
+
+</html>
