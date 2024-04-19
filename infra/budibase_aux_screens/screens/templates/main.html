@@ -20,16 +20,19 @@
     <body>
 
         <div class="Corpo">
-            <a href="{%url 'export_data'%}">
-            <button> Ir para Tela de Exportar Dados </button>
-            </a>
+            <label for="myfile">Select a file:</label>
+            <input type="file" id="myfile" name="myfile"> 
+
+            
+            <form method="POST" action="{% url ''%}">
+                {% csrf_token %}
             <button> Ir para Tela de Adicionar Imagens de Folíolos </button>
+            </form>
         </div>
         
     </body>
 
     <footer>
-        <a href="https://github.com/chevitaresebruno" target="_blank"> Desenvolvedor: Bruno Chevitarese </a>
     </footer>
 
 </html>
