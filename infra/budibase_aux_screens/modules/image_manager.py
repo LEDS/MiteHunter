@@ -4,8 +4,6 @@ from pathlib import Path
 from shutil import move
 import os
 
-
-
 @dataclass
 class DirNamesMannager():
     dir_path: Path
