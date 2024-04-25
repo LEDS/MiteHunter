@@ -34,7 +34,8 @@ input[type="file"] {
     border-radius: 5px;
 }
 
-button[type="submit"] {
+/* Estilo para ambos os botões */
+button[type="submit"], #showCarouselButton {
     background-color: #777bff;
     color: #fff;
     border: none;
@@ -45,7 +46,7 @@ button[type="submit"] {
     transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
+/* Efeito de hover para ambos os botões */
+button[type="submit"]:hover, #showCarouselButton:hover {
     background-color: #0056b3;
 }
-
