@@ -29,7 +29,7 @@ style = [
 ]
 
 [tool.commitizen.customize]
-message_template = "{{change_type}}(MITE-{{10000}}): {{message}} {%if workflow_transition %} #{{workflow_transition_stage}} {% endif %}"
+message_template = "{{change_type}}(MITE-{{issue_key}}): {{message}} {%if workflow_transition %} #{{workflow_transition_stage}} {% endif %}"
 schema = "<type>: <body>"
 schema_pattern = "(feature|fix|doc|refactor|ci|test|build):(\\s.*)"
 
