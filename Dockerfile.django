@@ -1,0 +1,20 @@
+# Use a imagem oficial do Python como base
+FROM python:3.12
+
+# Define o diretório de trabalho como /app
+WORKDIR /app
+
+# Copie o arquivo requirements.txt para o diretório de trabalho
+COPY requirements.txt .
+
+# Instale as dependências do projeto
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copie todo o código do projeto para o diretório de trabalho
+COPY . .
+
+# Exponha a porta 8000 para o servidor web do Django
+EXPOSE 8000
+
+# Comando para executar o servidor Django
+CMD ["python", "budibase_aux_screens/manage.py", "runserver", "0.0.0.0:8000"]

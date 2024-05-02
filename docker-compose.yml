@@ -51,13 +51,23 @@ services:
     container_name: portainer
     ports:
       - "9000:9000"
-      - "8000:8000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     networks:
       - internal_network
     restart: on-failure
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    container_name: django
+    ports:
+      - "8000:8000"
+    networks:
+      - internal_network
+    restart: unless-stopped
 
 volumes:
   portainer_data:
