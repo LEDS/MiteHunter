@@ -58,24 +58,23 @@
   <summary>Sumário:</summary>
   <ol>
     <li>
-      <a href="#about-the-project">Sobre o Projeto</a>
+      <a href="#sobre-o-projeto">Sobre o Projeto</a>
       <ul>
-        <li><a href="#built-with">Tecnologias</a></li>
+        <li><a href="#tecnologias">Tecnologias</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Começando</a>
+      <a href="#começando">Começando</a>
       <ul>
-        <li><a href="#prerequisites">pré-Requisitos</a></li>
-        <li><a href="#installation">Instalando</a></li>
+        <li><a href="#pré-requisitos">Pré-requisitos</a></li>
+        <li><a href="#instalando">Instalando</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Uso</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contribuir</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contato</a></li>
-    <li><a href="#acknowledgments">Agradecimentos</a></li>
+    <li><a href="#uso">Uso</a></li>
+    <li><a href="#contribuindo">Contribuir</a></li>
+    <li><a href="#license">Licença</a></li>
+    <li><a href="#contato">Contato</a></li>
+    <li><a href="#agradecimentos">Agradecimentos</a></li>
   </ol>
 </details>
 
