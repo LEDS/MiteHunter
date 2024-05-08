@@ -1,9 +1,10 @@
-from modules.process_insert_database import *
+from .process_insert_database import *
+from __init__ import JSONS_PATH, PROCESSED_JSONS_PATH
 import json
 import os
 
 
-def checkExistsFilesFolder():
+def check_exists_files_folder(dict_sample_elements):
     """
     Feature: Function responsible for checking whether a file exists in the designated folder.
 
@@ -13,20 +14,19 @@ def checkExistsFilesFolder():
         - If a file exists, the function to read the file is called
         - If there is no file, the program execution follows another cycle until a new file exists.
     """
-    print("Verificando...")
-    folder = "C:/Users/wilsi/Desktop/MiteHunterSystem/MiteHunterSystem/jsons"
+    folder = JSONS_PATH
 
     if os.path.exists(folder) and os.path.isdir(folder):
         files_in_folder = os.listdir(folder)
 
         if files_in_folder:
-            readJsonData()
+            read_json_data(dict_sample_elements)
         else:
             return
     else:
         return
 
-def readJsonData():
+def read_json_data(dict_sample_elements):
     """
     Feature: Function responsible for reading data contained in a Json file.
         - When this function is called, it tries to read the file sent by the "checkExistsFilesFolder" function.
@@ -40,23 +40,23 @@ def readJsonData():
     @return: None.
     """
 
-    path = "C:/Users/wilsi/Desktop/MiteHunterSystem/MiteHunterSystem/jsons"
+    path = JSONS_PATH
     dirs = os.listdir(path)
 
     for file in dirs:
-        source = f"C:/Users/wilsi/Desktop/MiteHunterSystem/MiteHunterSystem/jsons/{file}"
+        source = f"{JSONS_PATH}/{file}"
         try:
             json_data = None
-            dest = f"C:/Users/wilsi/Desktop/MiteHunterSystem/MiteHunterSystem/jsons_processados/{file}"
-            with open(f"C:/Users/wilsi/Desktop/MiteHunterSystem/MiteHunterSystem/jsons/{file}", "r") as f:
+            dest = f"{PROCESSED_JSONS_PATH}/{file}"
+            with open(f"{JSONS_PATH}/{file}", "r") as f:
                 json_data = json.load(f)
-            informations = dictProcess(json_data)
+            informations = dict_process(json_data, dict_sample_elements)
             os.replace(source,dest)
 
+            create_sample(informations[0])
+
             for value in informations:
-                insertOnDatabase(value)
+                insert_database(value)
                 
         except Exception as e:
-            #dest = f"C:/Users/user/Desktop/MiteHunterIA/insertDB/jsonsErro/{file}"
-            print(e)
-            #os.replace(source,dest)
+            print(f'O erro em readJsonData é: {e}')

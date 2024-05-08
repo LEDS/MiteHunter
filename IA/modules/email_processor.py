@@ -1,6 +1,11 @@
-import os
-import email
 from datetime import datetime
+import base64
+import email
+import os
+
+def decode_utf8(s: str) -> str:
+    string = base64.b64decode(s[10:])
+    return string.decode('utf-8')
 
 class EmailProcessor:
     def __init__(self, email_client):
@@ -38,6 +43,9 @@ class EmailProcessor:
 
                 filename = part.get_filename()
                 if filename:
+                    if filename.startswith('=?UTF-8?B?'):
+                        filename = decode_utf8(filename)
+
                     filepath = os.path.join(full_path, filename)
                     open(filepath, 'wb').write(part.get_payload(decode=True))
 

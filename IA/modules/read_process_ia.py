@@ -1,5 +1,7 @@
-from modules.sample_elements import SampleTableElements
+from .sample_elements import SampleTableElements
+from .jsons_folder_read import *
 from dataclasses import dataclass
+from __init__ import JSONS_PATH
 from ultralytics import YOLO
 from types import NoneType
 from datetime import date
@@ -54,10 +56,10 @@ class OutputCounter:
     def remove_folder(folder: Path, folder_name:str):
         folder_content = os.listdir(folder)
         if len(folder_content) == 0:
-            SampleTableElements.count_elements(Path(folder_name))
             os.rmdir(folder)
-        else:
-            pass
+            sample_table_elements = SampleTableElements()
+            sample_table_elements.count_elements(Path(folder_name))
+            check_exists_files_folder(sample_table_elements.file_count_dict)
 
     @staticmethod
     def write_json(json_file_path: Path, json_data: Path):
@@ -94,9 +96,6 @@ class OutputCounter:
             save = False
         )
 
-        #self.move_file(self.yolo_predict_path / "image0.jpg", bouding_box_img_path)
-        #self.yolo_predict_path.rmdir()
-
         for _class in results[0].boxes.cls:
             match _class:
                 case 0: counted.californicus += 1
@@ -113,8 +112,8 @@ class OutputCounter:
             # Descobre o usuario pelo nome da pasta
             folder_name: str = str(folder.name)
             list_separate_folder_name = folder_name.split("_")
-            cultivo_id: int = list_separate_folder_name[1]
-            sample_date: date = f"{list_separate_folder_name[2][:4]}-{list_separate_folder_name[2][4:6]}-{list_separate_folder_name[2][6:8]}"
+            cultivo_id: int = list_separate_folder_name[0]
+            sample_date: date = f"{list_separate_folder_name[1][:4]}-{list_separate_folder_name[1][4:6]}-{list_separate_folder_name[1][6:8]}"
             folder_name_processed_images_path = self.processed_images_path / folder_name
             bouding_box_processed_images_path = self.bouding_box_processed_images_path / folder_name
             folder_name_error_images_path = self.error_images_path / folder_name
@@ -143,7 +142,7 @@ class OutputCounter:
                         "californicus": counts.californicus
                     }
 
-                    self.write_json(Path(f'C:/Users/wilsi/Desktop/MiteHunterSystem/MiteHunterSystem/jsons/{folder_name}.json'), self.processed_images)
+                    self.write_json(Path(f'{JSONS_PATH}/{folder_name}.json'), self.processed_images)
                     
                     self.move_file(img_path, processed_img_path)
                     self.processed_images.clear()
@@ -152,25 +151,3 @@ class OutputCounter:
                 
                 except Exception as e:
                     print(e)
-                    """error_img_path = folder_name_error_images_path / img_path.name
-
-                    if not folder_name_error_images_path.exists():
-                        folder_name_error_images_path.mkdir()
-
-                    error_img_path.__str__()
-                    
-                    self.error_images = {
-                        "cultivo_id": int(cultivo_id),
-                        "imgOrig": str(error_img_path),
-                        "imgProc": "",
-                        "data_Amos":sample_date,
-                        "rajado": counts.rajado,
-                        "macropilis": counts.macropilis,
-                        "californicus": counts.californicus
-                    }
-
-                    self.write_json(Path(f'jsons_error/{folder_name}.json'), self.error_images)
-                    
-                    self.move_file(img_path, error_img_path)
-                    self.error_images.clear()
-                    self.remove_folder(folder)"""

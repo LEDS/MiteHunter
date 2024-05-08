@@ -3,10 +3,14 @@
 import os
 import sys
 
-
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'budibase_aux_screens.settings')
+
+    # Adiciona o diretório raiz do projeto ao PYTHONPATH
+    root_project_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.append(root_project_path)
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -16,7 +20,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,1 @@
+SELECT id FROM Amostragem WHERE data_Amos = %s AND cultivo_id = %s

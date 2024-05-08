@@ -1,0 +1,127 @@
+from __init__ import JSONS_PATH
+from pathlib import Path
+import json
+import os
+
+class SampleTableElements:
+    def __init__(self):
+        self.file_count_dict = {}
+
+    @staticmethod
+    def qtd_foliolos(json_file: Path) -> int:
+        opened_file = open(f"{JSONS_PATH}/{json_file}.json")
+        data = json.load(opened_file)
+        count = len(data)
+        opened_file.close()  # Close the file after reading
+        return count
+    
+    def spider_mite_average_leaf(self, json_file: str) -> float:  # images_list: list[ProcessedImage] 
+        spider_mite_total = 0
+        opened_file = open(f"{JSONS_PATH}/{json_file}.json")
+        data = json.load(opened_file)
+
+        leaf_total = self.qtd_foliolos(json_file)
+        for item in data:
+            rajado = item.get("rajado")
+            spider_mite_total += rajado
+        average = spider_mite_total / leaf_total
+        opened_file.close()
+        self.file_count_dict[json_file]["media_rajado_foliolo"] = average
+        return average
+
+    def count_elements(self, json_file: Path):
+        opened_file = open(f"{JSONS_PATH}/{json_file}.json")
+        data = json.load(opened_file)
+        total_foliolos = SampleTableElements.qtd_foliolos(json_file)  # Total folíolos for this file
+        
+        for item in data:
+            rajado = int(item.get("rajado"))
+            macropilis = int(item.get("macropilis"))
+            californicus = int(item.get("californicus"))
+            if macropilis == 0 and californicus == 0 and rajado == 0:
+                self.increment_count(json_file.name, "sem_predador_sem_rajado", total_foliolos)
+            elif (macropilis > 0 or californicus > 0) and rajado > 0:
+                self.increment_count(json_file.name, "com_predador_com_rajado", total_foliolos)
+            elif (macropilis != 0 or californicus != 0) and rajado == 0:
+                self.increment_count(json_file.name, "com_predador_sem_rajado", total_foliolos)
+            elif (macropilis == 0 and californicus == 0) and rajado != 0:
+                if rajado > 10:
+                    self.increment_count(json_file.name, "mais_dez_rajado", total_foliolos)
+                elif 6 <= rajado <= 9:
+                    self.increment_count(json_file.name, "seis_a_nove_rajado", total_foliolos)
+                elif 1 <= rajado <= 5:
+                    self.increment_count(json_file.name, "um_a_cinco_rajado", total_foliolos)
+        self.final_classification()
+        opened_file.close()  # Close the file after reading
+
+    def increment_count(self, file_name: str, key: str, total_foliolos: int):
+        if file_name not in self.file_count_dict:
+            self.file_count_dict[file_name] = {}
+        if key not in self.file_count_dict[file_name]:
+            self.file_count_dict[file_name][key] = 0
+        self.file_count_dict[file_name][key] += 1
+        # Calculate and store percentage
+        percentage_key = f"{key}_percentage"
+        self.file_count_dict[file_name][percentage_key] = (
+            self.file_count_dict[file_name][key] / total_foliolos
+        )
+
+        # Remove original count key and value
+        #del self.file_count_dict[file_name][key]
+
+        self.file_count_dict[file_name]["qtd_total"] = total_foliolos
+        self.spider_mite_average_leaf(file_name)
+        self.increment_keys()
+
+    def increment_keys(self):
+        l = []
+        keys = ["sem_predador_sem_rajado_percentage", "com_predador_com_rajado_percentage", "com_predador_sem_rajado_percentage", "mais_dez_rajado_percentage", "seis_a_nove_rajado_percentage", "um_a_cinco_rajado_percentage"]
+        for file_name, counts in self.file_count_dict.items():
+            for key, value in counts.items():
+                l.append(key)
+            for i in keys:
+                if i not in l:
+                    self.file_count_dict[file_name][i] = 0
+            l = []
+
+    def final_classification(self) -> str:
+        max_priority_percentage = 0.3  # Threshold for prioritized classifications
+        prioritized_keys = ["mais_dez_rajado_percentage", "seis_a_nove_rajado_percentage", "um_a_cinco_rajado_percentage"]
+        max_percentage = 0
+        final_class = ""
+
+        for file_name, counts in self.file_count_dict.items():
+            for key, value in counts.items():
+                if key in prioritized_keys and value >= max_priority_percentage:
+                    final_class = key.replace("_percentage", "")  # Return prioritized classification
+                    break
+                elif key.endswith("_percentage") and value > max_percentage:
+                    max_percentage = value
+                    final_class = key.replace("_percentage", "")
+
+        self.file_count_dict[file_name]["classe_final"] = final_class  # Save final_class in dict
+        self.suggested_action(file_name,final_class)
+        self.reset_final_class()
+        return final_class
+
+    def suggested_action(self, file_name: str, final_class: str) -> str:
+        suggested_action = ""
+        if final_class == "mais_dez_rajado":
+            suggested_action = "Jogar químico!"
+        elif final_class == "seis_a_nove_rajado":
+            suggested_action = "Soltar ácaro predador!"
+        elif final_class == "um_a_cinco_rajado":
+            suggested_action = "Jogar água!"
+        else:
+            suggested_action = "Não fazer nada!"
+
+        self.file_count_dict[file_name]["acao_sugerida"] = suggested_action
+
+        self.reset_suggested_action()  # Reset suggested_action after processing
+        return suggested_action
+    
+    def reset_final_class(self):
+        final_class = ""  # Reset final_class to an empty string
+
+    def reset_suggested_action(self):
+        suggested_action = ""  # Reset suggested_action to an empty string
