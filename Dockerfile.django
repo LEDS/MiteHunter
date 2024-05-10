@@ -1,8 +1,11 @@
 # Use a imagem oficial do Python como base
-FROM python:3.12
+FROM python:3.10.12
 
 # Define o diretório de trabalho como /app
 WORKDIR /app
+
+# Instalando dependencias
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
 
 # Copie o arquivo requirements.txt para o diretório de trabalho
 COPY requirements.txt .
@@ -17,5 +20,5 @@ COPY . .
 EXPOSE 8000
 
 # Comando para executar o servidor Django
-CMD ["python", "budibase_aux_screens/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "budibase_aux_screens/manage.py", "runserver", "0.0.0.0:8000"]
  
