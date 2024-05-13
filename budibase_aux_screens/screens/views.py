@@ -2,19 +2,12 @@ from django.conf import settings
 from django.shortcuts import render
 from .aux_module import create_dir
 from .models import FormFile
-import sys
-import os
-mitehunter_path = os.path.join(settings.BASE_DIR, '..', settings.IA_PATH)
-sys.path.append(mitehunter_path)
+
 from IA.run_ia import run_ia
 
 def main(request, c_id):
     if request.method == 'POST':
         upload_files(request, c_id)
-
-        mitehunter_path = os.path.join(settings.BASE_DIR, '..', settings.IA_PATH)
-        sys.path.append(mitehunter_path)
-        from IA.run_ia import run_ia
 
         run_ia()
 

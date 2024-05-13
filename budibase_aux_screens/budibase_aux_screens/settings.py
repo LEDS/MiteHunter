@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'screens',
+    'budibase_aux_screens.screens',
 ]
 
 MIDDLEWARE = [
@@ -39,7 +39,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'budibase_aux_screens.urls'
+ROOT_URLCONF = 'budibase_aux_screens.budibase_aux_screens.urls'
 
 TEMPLATES = [
     {
@@ -57,7 +57,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'budibase_aux_screens.wsgi.application'
+WSGI_APPLICATION = 'budibase_aux_screens.budibase_aux_screens.wsgi.application'
 
 
 # Database
@@ -105,7 +105,7 @@ STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', IA_PATH, 'images_input')
 MEDIA_URL  = '/media/'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'screens/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'budibase_aux_screens/screens/static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
