@@ -1,12 +1,16 @@
 from dotenv import load_dotenv
 from types import NoneType
 import mysql.connector
+from __init__ import SAMPLE_ID_SQL_FILE, INSERT_SAMPLE_SQL_FILE, INSERT_FOLIOLO_SQL_FILE
 import os
 
 def read_file(path: str) -> str | NoneType:
     """
     Feature: Function responsible for reading files
+
     @param path: File to read
+    
+    @return: None
     """
     try:
         with open(path, "r") as f:
@@ -30,18 +34,18 @@ class MySQL_Response:
 class MySQL_Connection:
     """Class responsible for establishing connection to the Database"""
     # SELECT FILES
-    SQLFILE_SELECT_SAMPLEID = "../sql/get_idAmostra.sql"
+    SQLFILE_SELECT_SAMPLEID = SAMPLE_ID_SQL_FILE
 
     # INSERT FILES
-    SQLFILE_INSERT_SAMPLE = "../sql/insert_amostra.sql"
-    SQLFILE_INSERT_FRUITS_QUANTITY = "../sql/insert_foliolos.sql"
+    SQLFILE_INSERT_SAMPLE = INSERT_SAMPLE_SQL_FILE
+    SQLFILE_INSERT_FOLIOLO = INSERT_FOLIOLO_SQL_FILE
 
 
     def __init__(self, env_file: str):
         self.env_file = env_file
     
 
-    def insert_amostra(self, data_Amos: str, cultivo_id: int, classificacao_final: str, media_rajado_foliolo: float, acao_sugerida: str, qtd_total: int, seis_a_nove: float, mais_dez: float, um_a_cinco: float, sem_predador_rajado: float, predador_sem_rajado: float, com_predador_rajado: float) -> MySQL_Response:
+    def insert_sample(self, data_Amos: str, cultivo_id: int, classificacao_final: str, media_rajado_foliolo: float, acao_sugerida: str, qtd_total: int, seis_a_nove: float, mais_dez: float, um_a_cinco: float, sem_predador_rajado: float, predador_sem_rajado: float, com_predador_rajado: float) -> MySQL_Response:
         """
         Feature: Function responsible for performing INSERT in the SAMPLE table with a given Planting ID and Timestamp.
         
@@ -83,8 +87,9 @@ class MySQL_Connection:
             "database": os.getenv("MYSQL_DATABASE"),
             "port": os.getenv("MYSQL_PORT")
         }
+
         try:
-            connection = mysql.connector.connect(**connection_config) # outra hora
+            connection = mysql.connector.connect(**connection_config) 
             cursor = connection.cursor()
         except Exception as e:
             return MySQL_Response(confirmation = False, error = 1)
@@ -99,12 +104,12 @@ class MySQL_Connection:
             return MySQL_Response(confirmation = False, error = 2, msg_error = e)
         
         cursor.close()
-        connection.close() # outra hora
+        connection.close() 
 
         return MySQL_Response(confirmation = True)
         
 
-    def select_idAmostra(self, data_Amos: str, cultivo_id: int) -> MySQL_Response:
+    def select_sample_id(self, data_Amos: str, cultivo_id: int) -> MySQL_Response:
         """
         Feature: Function responsible for performing SELECT on the SAMPLE table in search of the ID with a given Cultivation ID and Timestamp.
 
@@ -120,10 +125,11 @@ class MySQL_Connection:
                 - -1: Executed correctly;
                 - 0: SQL file not found;
                 - 1: Connection not established;
-                - 2: error executing SQL;
+                - 2: Error executing SQL;
+                - 3: Indicates that an error occurred while executing the SQL query;
             - msg_error: Used only if confirmation == False and error = 2. Returns the description of the MySQL error.
-            - id: Sample Id (if there is an error, return 0. if no lines are returned, return -1)
-        """ # ATUALIZAR ESSE COMENTARIO AQUI
+            - output: Sample Id 
+        """ 
         
         sql_code = read_file(self.SQLFILE_SELECT_SAMPLEID)
         if sql_code is None:
@@ -137,8 +143,9 @@ class MySQL_Connection:
             "database": os.getenv("MYSQL_DATABASE"),
             "port": os.getenv("MYSQL_PORT")
         }
+
         try:
-            connection = mysql.connector.connect(**connection_config) # verificar esse troco aqui
+            connection = mysql.connector.connect(**connection_config) 
             cursor = connection.cursor()
         except:
             return MySQL_Response(confirmation = False, error = 1)
@@ -157,12 +164,12 @@ class MySQL_Connection:
             return MySQL_Response(confirmation = False, error = 2, msg_error = e)
         
         cursor.close()
-        connection.close() # verificar esse troco aqui
+        connection.close() 
 
         return MySQL_Response(confirmation = True, data = output)
 
 
-    def insert_foliolos(self, imgOrig:str, imgProc:str, qntRaj: int, qntMacro: int, qntCali: int, sample_id: int) -> MySQL_Response:
+    def insert_leafs(self, imgOrig:str, imgProc:str, qntRaj: int, qntMacro: int, qntCali: int, sample_id: int) -> MySQL_Response:
         """
         Feature: Function responsible for performing INSERT in the QUANTIDADE_FRUTO table with a given Sample ID, Category ID and Quantity.
 
@@ -183,7 +190,7 @@ class MySQL_Connection:
                 - msg_error: str (when applicable) | NoneType -> Description of the error, if any;
         """
         
-        sql_code = read_file(self.SQLFILE_INSERT_FRUITS_QUANTITY)
+        sql_code = read_file(self.SQLFILE_INSERT_FOLIOLO)
         if sql_code is None:
             return MySQL_Response(confirmation = False, error = 0)
         
@@ -195,8 +202,9 @@ class MySQL_Connection:
             "database": os.getenv("MYSQL_DATABASE"),
             "port": os.getenv("MYSQL_PORT")
         }
+
         try:
-            connection = mysql.connector.connect(**connection_config) # verificar dps
+            connection = mysql.connector.connect(**connection_config) 
             cursor = connection.cursor()
         except:
             return MySQL_Response(confirmation = False, error = 1)
@@ -211,7 +219,7 @@ class MySQL_Connection:
             return MySQL_Response(confirmation = False, error = 2, msg_error = e)
         
         cursor.close()
-        connection.close() # verificar
+        connection.close() 
 
         return MySQL_Response(confirmation = True)
         

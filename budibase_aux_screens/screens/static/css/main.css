@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.Corpo {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centralizando conteúdo */
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    display: block;
+    margin: auto; /* Centralizar horizontalmente */
+    margin-top: 20px; /* Adicionar espaço acima */
+    margin-bottom: 20px; /* Adicionar espaço abaixo */
+    width: 80%; /* Definir largura */
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Estilo para ambos os botões */
+button[type="submit"], #showCarouselButton {
+    background-color: #777bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Efeito de hover para ambos os botões */
+button[type="submit"]:hover, #showCarouselButton:hover {
+    background-color: #0056b3;
+}

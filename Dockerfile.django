@@ -1,0 +1,24 @@
+# Use a imagem oficial do Python como base
+FROM python:3.10.12
+
+# Define o diretório de trabalho como /app
+WORKDIR /app
+
+# Instalando dependencias
+RUN apt-get update && apt-get install -y libgl1-mesa-glx
+
+# Copie o arquivo requirements.txt para o diretório de trabalho
+COPY requirements.txt .
+
+# Instale as dependências do projeto
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copie todo o código do projeto para o diretório de trabalho
+COPY . .
+
+# Exponha a porta 8000 para o servidor web do Django
+EXPOSE 8000
+
+# Comando para executar o servidor Django
+CMD ["python3", "main.py", "runserver", "0.0.0.0:8000"]
+ 

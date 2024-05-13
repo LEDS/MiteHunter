@@ -21,14 +21,6 @@ SET time_zone = "+00:00";
 -- Banco de dados: `Inventario`
 --
 
---
--- Estrutura para tabela `BudibaseIpCatch`
---
-
-CREATE TABLE `BudibaseIpCatch` (
-  `ip` varchar(15) NOT NULL
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 -- --------------------------------------------------------
 
 --
@@ -244,9 +236,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `PROPRIE
 --
 -- Índices de tabela `Agricultor`
 --
-ALTER TABLE `BudibaseIpCatch`
-  ADD PRIMARY KEY (`ip`)
-
 ALTER TABLE `Agricultor`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`),
