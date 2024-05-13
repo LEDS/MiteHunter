@@ -245,7 +245,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`%` SQL SECURITY DEFINER VIEW `PROPRIE
 -- Índices de tabela `Agricultor`
 --
 ALTER TABLE `BudibaseIpCatch`
-  ADD PRIMARY KEY (`ip`)
+  ADD PRIMARY KEY (`ip`);
 
 ALTER TABLE `Agricultor`
   ADD PRIMARY KEY (`id`),
