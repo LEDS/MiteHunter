@@ -1,1 +1,0 @@
-INSERT INTO Foliolo (imgOrig, imgProc, qntRajado, qntMacropilis, qntCalifornicus, amostragem_id) VALUES (%s, %s, %s, %s, %s, %s)

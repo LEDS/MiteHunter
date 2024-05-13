@@ -20,5 +20,5 @@ COPY . .
 EXPOSE 8000
 
 # Comando para executar o servidor Django
-CMD ["python3", "budibase_aux_screens/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python3", "main.py", "runserver", "0.0.0.0:8000"]
  
