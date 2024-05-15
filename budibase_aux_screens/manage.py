@@ -1,14 +1,13 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
 from __init__ import DB_NAME
 import mysql.connector
-import socket
+import time
 import sys
 import os
 
 
-def budibase_ip_cath():
-        connection_config = {
+def try_connection():
+    connection_config = {
             "host": os.getenv("MYSQL_HOST"),
             "user": os.getenv("MYSQL_USER"),
             "password": os.getenv("MYSQL_PASSWORD"),
@@ -16,14 +15,19 @@ def budibase_ip_cath():
             "port": os.getenv("MYSQL_PORT")
         }
         
+    while (True):
         try:
-            connection = mysql.connector.connect(**connection_config)
-            cursor = connection.cursor()
-        except:
-            raise "ERROR: Connection to Database"
+            return mysql.connector.connect(**connection_config)
+        except mysql.connector.Error as e:
+            print(f"ERROR: Failed to connect to database: {e}")
+            print("Retrying in 1 minute...")
+            time.sleep(60)
 
-        params = [socket.gethostbyname(socket.gethostname())]
-        
+
+def budibase_ip_cath():
+        connection = try_connection()
+        cursor =  connection.cursor()
+        params = [os.getenv("MYSQL_HOST")]
         
         cursor.execute("DELETE FROM BudibaseIpCatch")
         cursor.execute("INSERT INTO BudibaseIpCatch (ip) VALUES (%s)", params = params)
