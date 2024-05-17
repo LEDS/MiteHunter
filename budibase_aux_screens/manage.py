@@ -1,40 +1,45 @@
 #!/usr/bin/env python
 from __init__ import DB_NAME
 import mysql.connector
+import asyncio
 import time
 import sys
 import os
 
-
 def try_connection():
     connection_config = {
-            "host": os.getenv("MYSQL_HOST"),
-            "user": os.getenv("MYSQL_USER"),
-            "password": os.getenv("MYSQL_PASSWORD"),
-            "database": os.getenv("MYSQL_DATABASE"),
-            "port": os.getenv("MYSQL_PORT")
-        }
-        
-    while (True):
+        "host": os.getenv("MYSQL_HOST"),
+        "user": os.getenv("MYSQL_USER"),
+        "password": os.getenv("MYSQL_PASSWORD"),
+        "database": os.getenv("MYSQL_DATABASE"),
+        "port": os.getenv("MYSQL_PORT")
+    }
+
+    for c in range(5):
         try:
             return mysql.connector.connect(**connection_config)
         except mysql.connector.Error as e:
             print(f"ERROR: Failed to connect to database: {e}")
             print("Retrying in 1 minute...")
             time.sleep(60)
+    return None
 
+async def budibase_ip_catch():
+    connection = try_connection()
+    if connection is None:
+        return
 
-def budibase_ip_cath():
-        connection = try_connection()
-        cursor =  connection.cursor()
-        params = [os.getenv("MYSQL_HOST")]
-        
-        cursor.execute("DELETE FROM BudibaseIpCatch")
-        cursor.execute("INSERT INTO BudibaseIpCatch (ip) VALUES (%s)", params = params)
-        connection.commit()
-        cursor.close()
-        connection.close()
-        
+    cursor = connection.cursor()
+    params = [os.getenv("MYSQL_HOST")]
+
+    cursor.execute("DELETE FROM BudibaseIpCatch")
+    cursor.execute("INSERT INTO BudibaseIpCatch (ip) VALUES (%s)", params=params)
+    connection.commit()
+    cursor.close()
+    connection.close()
+
+def async_code():
+    asyncio.run(budibase_ip_catch())
 
 def manage():
     """Run administrative tasks."""
@@ -52,5 +57,5 @@ def manage():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    budibase_ip_cath()
+    async_code()
     execute_from_command_line(sys.argv)
