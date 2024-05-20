@@ -15,11 +15,13 @@
 </head>
 <body>
     <div class="Corpo">
-        <label for="myfile">Selecione um arquivo:</label>
+        <label for="myfile">Selecione as fotos e a data:</label>
         <form id="uploadForm" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
+            <h7>Quantidade sugerida de fotos: {{ qntPics }}</h7>
             <input type="file" id="myfile" name="myfile" multiple>
-            <button id="showCarouselButton" type="button" class="uploadButton">Visualizar Carrossel</button>
+            <input type="date" id="date" name="date"><br><br>
+            <button id="showCarouselButton" type="button" class="uploadButton">Visualizar Imagens</button>
             <button id="uploadButton" type="submit">Enviar Imagens</button>
         </form>
         <br>

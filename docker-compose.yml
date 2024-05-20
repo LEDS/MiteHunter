@@ -4,7 +4,6 @@ services:
   mysql:
     image: mysql:8.0.20
     container_name: mysql
-    command: chmod +x backup/restore_database.sh && . backup/restore_database.sh
     ports:
       - "3306:3306"
     environment:
@@ -17,24 +16,33 @@ services:
     networks:
       - internal_network
     restart: unless-stopped
+  
+  # wait_for_mysql:
+  #   image: busybox
+  #   depends_on:
+  #     - mysql
+  #   volumes:
+  #     - ./infra/backup.sql:/backup/backup.sql
+  #     - ./infra/commands/wait-for-it.sh:/wait-for-it.sh
+  #   entrypoint: ["sh", "-c", "sleep 180 && sh /wait-for-it.sh mysql 'cat /backup/backup.sql | mysql -u root --password=12345 MiteHunter'"]
 
-  budibase:
-    image: budibase/budibase:2.11.41
-    container_name: budibase
-    ports:
-      - "10000:80"
-    networks:
-      - internal_network
-    restart: unless-stopped
+  # budibase:
+  #   image: budibase/budibase:2.11.41
+  #   container_name: budibase
+  #   ports:
+  #     - "10000:80"
+  #   networks:
+  #     - internal_network
+  #   restart: unless-stopped
 
-  metabase:
-    image: metabase/metabase
-    container_name: metabase
-    ports:
-      - "3000:3000"
-    networks:
-      - internal_network
-    restart: unless-stopped
+  # metabase:
+  #   image: metabase/metabase
+  #   container_name: metabase
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - internal_network
+  #   restart: unless-stopped
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
