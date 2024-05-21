@@ -12,14 +12,35 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Tela Principal</title>
+
+    <script>
+        function countFiles(event) {
+            var files = document.getElementById('myfile').files;
+            var qntPics = {{ qntPics }};
+            if (files.length < qntPics) {
+                var confirmMessage = 'Você selecionou ' + files.length + ' fotos. A quantidade sugerida é ' + qntPics + '. Deseja continuar?';
+                if (!confirm(confirmMessage)) {
+                    event.preventDefault();  // Impede o envio do formulário se o usuário cancelar
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var uploadButton = document.getElementById('uploadButton');
+            uploadButton.addEventListener('click', countFiles);
+        });
+    </script>
+
 </head>
 <body>
     <div class="Corpo">
-        <label for="myfile">Selecione um arquivo:</label>
+        <label for="myfile">Selecione as fotos e a data:</label>
         <form id="uploadForm" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
+            <h7>Quantidade sugerida de fotos: {{ qntPics }}</h7>
             <input type="file" id="myfile" name="myfile" multiple>
-            <button id="showCarouselButton" type="button" class="uploadButton">Visualizar Carrossel</button>
+            <input type="date" id="date" name="date"><br><br>
+            <button id="showCarouselButton" type="button" class="uploadButton">Visualizar Imagens</button>
             <button id="uploadButton" type="submit">Enviar Imagens</button>
         </form>
         <br>

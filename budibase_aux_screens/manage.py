@@ -1,36 +1,42 @@
 #!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
 from __init__ import DB_NAME
-import mysql.connector
-import socket
+import aiomysql
+import asyncio
+import time
 import sys
 import os
 
+async def try_connection():
+    connection_config = {
+        "host": os.getenv("MYSQL_HOST"),
+        "user": os.getenv("MYSQL_USER"),
+        "password": os.getenv("MYSQL_PASSWORD"),
+        "port": int(os.getenv("MYSQL_PORT"))
+    }
 
-def budibase_ip_cath():
-        connection_config = {
-            "host": os.getenv("MYSQL_HOST"),
-            "user": os.getenv("MYSQL_USER"),
-            "password": os.getenv("MYSQL_PASSWORD"),
-            "database": os.getenv("MYSQL_DATABASE"),
-            "port": os.getenv("MYSQL_PORT")
-        }
-        
+    for c in range(5):
         try:
-            connection = mysql.connector.connect(**connection_config)
-            cursor = connection.cursor()
-        except:
-            raise "ERROR: Connection to Database"
+            return await aiomysql.connect(**connection_config)
+        except aiomysql.Error as e:
+            print(f"ERROR: Failed to connect to database: {e}")
+            print("Retrying in 1 minute...")
+            await asyncio.sleep(60)
+    return None
 
-        params = [socket.gethostbyname(socket.gethostname())]
-        
-        
-        cursor.execute("DELETE FROM BudibaseIpCatch")
-        cursor.execute("INSERT INTO BudibaseIpCatch (ip) VALUES (%s)", params = params)
-        connection.commit()
-        cursor.close()
-        connection.close()
-        
+async def budibase_ip_catch():
+    connection = await try_connection()
+    if connection is None:
+        return
+
+    async with connection.cursor() as cursor:
+        await cursor.execute("DELETE FROM MiteHunter.BudibaseIpCatch")
+        await cursor.execute("INSERT INTO MiteHunter.BudibaseIpCatch (ip) VALUES (%s)", (os.getenv("MYSQL_HOST"),))
+        await connection.commit()
+
+    connection.close()
+
+async def async_code():
+    await budibase_ip_catch()
 
 def manage():
     """Run administrative tasks."""
@@ -48,5 +54,6 @@ def manage():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    budibase_ip_cath()
+
+    asyncio.run(async_code())
     execute_from_command_line(sys.argv)

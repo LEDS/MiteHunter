@@ -11,27 +11,38 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./infra:/backup
     networks:
       - internal_network
     restart: unless-stopped
+  
+  # wait_for_mysql:
+  #   image: busybox
+  #   depends_on:
+  #     - mysql
+  #   volumes:
+  #     - ./infra/backup.sql:/backup/backup.sql
+  #     - ./infra/commands/wait-for-it.sh:/wait-for-it.sh
+  #   entrypoint: ["sh", "-c", "sleep 180 && sh /wait-for-it.sh mysql 'cat /backup/backup.sql | mysql -u root --password=12345 MiteHunter'"]
 
-  budibase:
-    image: budibase/budibase:2.11.41
-    container_name: budibase
-    ports:
-      - "10000:80"
-    networks:
-      - internal_network
-    restart: unless-stopped
+  # budibase:
+  #   image: budibase/budibase:2.11.41
+  #   container_name: budibase
+  #   ports:
+  #     - "10000:80"
+  #   networks:
+  #     - internal_network
+  #   restart: unless-stopped
 
-  metabase:
-    image: metabase/metabase
-    container_name: metabase
-    ports:
-      - "3000:3000"
-    networks:
-      - internal_network
-    restart: unless-stopped
+  # metabase:
+  #   image: metabase/metabase
+  #   container_name: metabase
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - internal_network
+  #   restart: unless-stopped
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
