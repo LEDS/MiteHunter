@@ -36,7 +36,7 @@ class ErrorImage:
 
 class OutputCounter:
     def __init__(self, *, model: YOLO, input_images_path: Path, processed_images_path: Path,
-                bouding_box_processed_images_path: Path, error_images_path: Path, yolo_predict_path: Path):
+                bouding_box_processed_images_path: Path, error_images_path: Path, yolo_predict_path: Path, callback, seila):
         self.model: YOLO = model
         self.input_images_path: Path = input_images_path
         self.processed_images_path: Path = processed_images_path
@@ -46,6 +46,9 @@ class OutputCounter:
 
         self.processed_images: dict = {}
         self.error_images: dict = {}
+
+        self.callback = callback
+        self.seila = seila
 
 
     @staticmethod
@@ -90,10 +93,10 @@ class OutputCounter:
 
         cv2_image: np.ndarray = cv2.imread(str(img_path))
         cv2_image_resized: np.ndarray = cv2.resize(cv2_image, (640, 640))
-
+        self.seila(cv2_image_resized, )
         results = self.model(
             source = cv2_image_resized,
-            save = False
+            save = True
         )
 
         for _class in results[0].boxes.cls:
