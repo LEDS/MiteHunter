@@ -2,12 +2,6 @@ import mysql.connector
 import time
 import os
 
-DB_NAME = os.getenv('MYSQL_DATABASE')
-DB_USER = os.getenv('MYSQL_USER')
-DB_PASSWORD = os.getenv('MYSQL_PASSWORD')
-DB_HOST = os.getenv('MYSQL_HOST')
-DB_PORT = os.getenv('MYSQL_PORT')
-
 def try_connection():
     connection_config = {
         "host": os.getenv('MYSQL_HOST'),
