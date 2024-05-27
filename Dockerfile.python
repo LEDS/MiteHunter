@@ -1,0 +1,17 @@
+# Use uma imagem base do Python
+FROM python:3.10.12
+
+# Defina o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copie os arquivos do projeto para o diretório de trabalho no container
+COPY infra/ infra/
+
+# Instale as dependências necessárias (se houver um arquivo requirements.txt)
+RUN pip install mysql-connector-python
+
+# Comando para executar o arquivo Python
+CMD ["python3", "/app/infra/commands/python_config/configuration.py"]
+
+#CMD ["sh", "-c", "cat /app/infra/commands/python_config/.env && python3 /app/infra/commands/python_config/configuration.py"]
+
