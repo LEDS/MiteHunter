@@ -3,25 +3,31 @@ import time
 import os
 import subprocess
 
-def execute_sql_dump():
+def databaseDump():
+    # Obtém o diretório do script atual
+    script_dir = os.path.dirname(__file__)
+    
+    # Define o caminho para o arquivo backup.sql no mesmo diretório
+    sql_file_path = os.path.join(script_dir, 'backup.sql')
+
+    # Verifica se o arquivo existe
+    if not os.path.exists(sql_file_path):
+        print(f"Erro: O arquivo {sql_file_path} não existe.")
+        return
+
+    # Recupera a senha do MySQL a partir das variáveis de ambiente
+    mysql_password = os.getenv('MYSQL_ROOT_PASSWORD')
+
     # Comando que você deseja executar
-    comando = "cat backup.sql | docker exec -i mysql /usr/bin/mysql -u root --password=12345 MiteHunter"
+    command = f"cat {sql_file_path} | docker exec -i mysql /usr/bin/mysql -u root --password={mysql_password} MiteHunter"
 
-    # Executar o comando
-    resultado = subprocess.run(comando, shell=True, capture_output=True, text=True)
+    # Executa o comando e captura a saída
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    stdout, stderr = process.communicate()
 
-    # Verificar se a execução foi bem-sucedida
-    if resultado.returncode == 0:
-        # Imprimir a saída do comando
-        print("Saída do comando:")
-        print(resultado.stdout)
-    else:
-        # Imprimir mensagem de erro se a execução falhou
-        print("Erro ao executar o comando.")
-
-
-def databaseDump():    
-    execute_sql_dump()
+    # Imprime a saída e erros, se houver
+    print("stdout:", stdout)
+    print("stderr:", stderr)
 
 
 def try_connection():
@@ -32,15 +38,15 @@ def try_connection():
         "port": os.environ['MYSQL_PORT']
     }
 
-
-    for c in range(5):
+    for c in range(8):
         try:
             return mysql.connector.connect(**connection_config)
         except mysql.connector.Error as e:
             print(f"ERROR: Failed to connect to database: {e}")
             print("Retrying in 1 minute...")
-            time.sleep(60)
+            time.sleep(30)
     return None
+
 
 def budibase_ip_catch():
     connection = try_connection()
@@ -49,15 +55,13 @@ def budibase_ip_catch():
 
     with connection.cursor() as cursor:
         cursor.execute("DELETE FROM MiteHunter.BudibaseIpCatch")
-        cursor.execute("INSERT INTO MiteHunter.BudibaseIpCatch (ip) VALUES (%s)", (os.getenv('MYSQL_HOST'),))
+        cursor.execute("INSERT INTO MiteHunter.BudibaseIpCatch (ip) VALUES (%s)", (os.environ['MYSQL_HOST'],))
         connection.commit()
 
     connection.close()
 
-def main():
-    databaseDump()
-    budibase_ip_catch()
-    databaseDump()
 
 if __name__ == '__main__':
+    connection = try_connection()
+    databaseDump()
     budibase_ip_catch()
