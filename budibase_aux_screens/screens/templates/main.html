@@ -12,57 +12,27 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Tela Principal</title>
-
-    <script>
-        function countFiles(event) {
-            var files = document.getElementById('myfile').files;
-            var qntPics = {{ qntPics }};
-            if (files.length < qntPics) {
-                var confirmMessage = 'Você selecionou ' + files.length + ' fotos. A quantidade sugerida é ' + qntPics + '. Deseja continuar?';
-                if (!confirm(confirmMessage)) {
-                    event.preventDefault();  // Impede o envio do formulário se o usuário cancelar
-                }
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var uploadButton = document.getElementById('uploadButton');
-            uploadButton.addEventListener('click', countFiles);
-        });
-    </script>
-
 </head>
 <body>
-    <div class="Corpo">
-        <label for="myfile">Selecione as fotos e a data:</label>
-        <form id="uploadForm" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <h7>Quantidade sugerida de fotos: {{ qntPics }}</h7>
-            <input type="file" id="myfile" name="myfile" multiple>
-            <input type="date" id="date" name="date"><br><br>
-            <button id="showCarouselButton" type="button" class="uploadButton">Visualizar Imagens</button>
-            <button id="uploadButton" type="submit">Enviar Imagens</button>
-        </form>
-        <br>
-
-        <!-- div carrossel -->
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators" id="carouselIndicators">
-                <!-- Aqui serão adicionados indicadores dinamicamente -->
-            </ol>
-            <div class="carousel-inner" id="carouselInner">
-                <!-- Aqui serão adicionadas as imagens dinamicamente -->
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Anterior</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Próximo</span>
-            </a>
+    <header>
+        <img class="title" id="image-logo" src="../static/image-removebg.png" alt="logo" width="50" height="50">
+            <h1 class="title" id="mite">MiteHunter</h1>
+        <div class="nav" id="mynav">
+                <a href="#">Agricultor</a>
+                <a href="#">Propriedade</a>
+                <a href="#">Talhão</a>
+                <a href="#">Cultivo</a>
+                <a href="#">Consultar Amostragem</a>
+                <a href="#">Produtos</a>
+                <a href="#">Cultivar</a>
+                <a href="imagens/{{ c_id }}">Enviar Imagens</a>
+                <a href="https://www.canva.com/">Exportar Dados</a>
         </div>
-    </div>
-    <script src="{% static 'js/main.js' %}"></script>
+    </header>
+
+    {% block content %}
+    
+    {% endblock %}
+    
 </body>
 </html>

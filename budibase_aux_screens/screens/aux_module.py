@@ -21,7 +21,8 @@ def create_dir(c_id: int, date) -> str:
 
 def get_pics_qnt(c_id):
     connection = try_connection()
-    
+    qnt = "20 a cada 1000 m²"
+
     if connection != None:
         cursor = connection.cursor()
         cursor.execute("SELECT area FROM Cultivo WHERE id = (%s)", (c_id,))
@@ -35,6 +36,7 @@ def get_pics_qnt(c_id):
             qnt = round((qnt)/50 + 0.5)    #regra de negócio, quantidade de plantas por area
 
         return qnt
+    return qnt
 
 
 def try_connection():
