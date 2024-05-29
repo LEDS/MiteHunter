@@ -1,14 +1,14 @@
 import mysql.connector
+import subprocess
 import time
 import os
-import subprocess
 
 def databaseDump():
     # Obtém o diretório do script atual
     script_dir = os.path.dirname(__file__)
     
-    # Define o caminho para o arquivo backup.sql no mesmo diretório
-    sql_file_path = os.path.join(script_dir, 'backup.sql')
+    # Define o caminho para o arquivo backup.sql
+    sql_file_path = "/app/infra/commands/backup.sql"
 
     # Verifica se o arquivo existe
     if not os.path.exists(sql_file_path):
@@ -38,7 +38,7 @@ def try_connection():
         "port": os.environ['MYSQL_PORT']
     }
 
-    for c in range(8):
+    for c in range(12):
         try:
             return mysql.connector.connect(**connection_config)
         except mysql.connector.Error as e:

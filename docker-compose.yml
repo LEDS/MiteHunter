@@ -17,23 +17,23 @@ services:
       - internal_network
     restart: unless-stopped
  
-  budibase:
-    image: budibase/budibase:2.11.41
-    container_name: budibase
-    ports:
-      - "10000:80"
-    networks:
-      - internal_network
-    restart: unless-stopped
+  # budibase:
+  #   image: budibase/budibase:2.11.41
+  #   container_name: budibase
+  #   ports:
+  #     - "10000:80"
+  #   networks:
+  #     - internal_network
+  #   restart: unless-stopped
 
-  metabase:
-    image: metabase/metabase
-    container_name: metabase
-    ports:
-      - "3000:3000"
-    networks:
-      - internal_network
-    restart: unless-stopped
+  # metabase:
+  #   image: metabase/metabase
+  #   container_name: metabase
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - internal_network
+  #   restart: unless-stopped
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -48,28 +48,28 @@ services:
       - internal_network
     restart: unless-stopped
 
-  portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    ports:
-      - "9000:9000"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
-    networks:
-      - internal_network
-    restart: on-failure
+  # portainer:
+  #   image: portainer/portainer-ce:latest
+  #   container_name: portainer
+  #   ports:
+  #     - "9000:9000"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - portainer_data:/data
+  #   networks:
+  #     - internal_network
+  #   restart: on-failure
 
-  django:
-    build:
-      context: .
-      dockerfile: Dockerfile.django
-    container_name: django
-    ports:
-      - "8000:8000"
-    networks:
-      - internal_network
-    restart: unless-stopped
+  # django:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.django
+  #   container_name: django
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - internal_network
+  #   restart: unless-stopped
 
   config:
     build:
@@ -91,7 +91,7 @@ services:
       - internal_network
 
 volumes: 
-  portainer_data:
+  portainer_data: 
 
 networks:
   internal_network:
