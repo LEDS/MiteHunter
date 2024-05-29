@@ -6,14 +6,7 @@ from .models import FormFile
 from IA.run_ia import run_ia
 
 def main(request, c_id):
-    if request.method == 'POST':
-        upload_files(request, c_id)
-
-        run_ia()
-
-        return render(request, 'close_window.html', )
-
-    return render(request, 'main.html', {})
+    return render(request, 'main.html', {'c_id': c_id})
 
 
 def upload_files(request, c_id):
@@ -30,4 +23,19 @@ def upload_files(request, c_id):
             form.save()
             i+=1    
 
-            
+
+def table_page(request, table_name: str):
+    html_file: str = f"tables/{table_name}-table.html"
+
+    return render(request, html_file, {})
+
+
+def send_images(request, c_id: int):
+    if request.method == 'POST':
+        upload_files(request, c_id)
+
+        run_ia()
+
+        return render(request, 'close_window.html', {})
+
+    return render(request, "send_images.html", {})
