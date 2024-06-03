@@ -1,11 +1,13 @@
 {% extends 'main.html' %}
-
+{% load static %}
 {% block content %}
 <div class="Corpo">
     <label for="myfile">Selecione um arquivo:</label>
     <form id="uploadForm" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        <h7>Quantidade sugerida de fotos: {{ qntPics }}</h7>
         <input type="file" id="myfile" name="myfile" multiple>
+        <input type="date" id="date" name="date"><br><br>
         <button id="showCarouselButton" type="button" class="uploadButton">Visualizar Carrossel</button>
         <button id="uploadButton" type="submit">Enviar Imagens</button>
     </form>

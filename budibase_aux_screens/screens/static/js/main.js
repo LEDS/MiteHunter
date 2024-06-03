@@ -1,3 +1,36 @@
+// Alert Verification
+
+// Conta os arquivos e verifica se é compatível com a quantidade indicada
+function countFiles(event) {
+    var files = document.getElementById('myfile').files;
+    var qntPics = {{ qntPics }};
+    if (files.length < qntPics) {
+        var confirmMessage = 'Você selecionou ' + files.length + ' fotos. A quantidade sugerida é ' + qntPics + '. Deseja continuar?';
+        if (!confirm(confirmMessage)) {
+            event.preventDefault();  // Impede o envio do formulário se o usuário cancelar
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var uploadButton = document.getElementById('uploadButton');
+    uploadButton.addEventListener('click', countFiles);
+});
+
+// Navigation
+
+//
+function myFunction() {
+    var x = document.getElementById("mynav");
+    if (x.classList.contains("responsive")) {
+        x.classList.remove("responsive");
+    } else {
+        x.classList.add("responsive");
+    }
+    }
+    
+    
+
 // carousel.js
 
 // Função para carregar as imagens no carrossel

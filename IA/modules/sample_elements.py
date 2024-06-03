@@ -43,7 +43,7 @@ class SampleTableElements:
         average = spider_mite_total / leaf_total
         opened_file.close()
         self.file_count_dict[json_file]["media_rajado_foliolo"] = average
-        return average
+        return average * 100
 
     def count_elements(self, json_file: Path) -> None:
         """
@@ -141,13 +141,13 @@ class SampleTableElements:
     def suggested_action(self, file_name: str, final_class: str) -> str:
         suggested_action = ""
         if final_class == "mais_dez_rajado":
-            suggested_action = "Jogar químico!"
+            suggested_action = "Pulverizar Produto Químico Compatível"
         elif final_class == "seis_a_nove_rajado":
-            suggested_action = "Soltar ácaro predador!"
+            suggested_action = "Entrar em Contato com Entomologista"
         elif final_class == "um_a_cinco_rajado":
-            suggested_action = "Jogar água!"
+            suggested_action = "Realizar o Controle Biológico"
         else:
-            suggested_action = "Não fazer nada!"
+            suggested_action = "Tudo Ok. Manter em Observação"
 
         self.file_count_dict[file_name]["acao_sugerida"] = suggested_action
 
