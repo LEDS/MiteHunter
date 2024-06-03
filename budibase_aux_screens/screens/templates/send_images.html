@@ -1,9 +1,6 @@
 {% extends 'main.html' %}
 
 {% block content %}
-
-{% load static %}
-
 <div class="Corpo">
     <label for="myfile">Selecione as fotos e a data:</label>
     <form id="uploadForm" method="POST" enctype="multipart/form-data">
@@ -34,7 +31,4 @@
         </a>
     </div>
 </div>
-
-<script src="{% static 'js/main.js' %}"></script>
-
 {% endblock %}

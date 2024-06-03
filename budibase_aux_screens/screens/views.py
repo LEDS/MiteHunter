@@ -3,9 +3,6 @@ from .aux_module import create_dir, get_pics_qnt
 from django.conf import settings
 from IA.run_ia import run_ia
 from .models import FormFile
-import mysql.connector
-import os
-
 
 def main(request, c_id):
     if request.method == 'POST':

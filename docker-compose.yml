@@ -11,10 +11,12 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./infra:/backup
     networks:
       - internal_network
     restart: unless-stopped
-
+ 
   budibase:
     image: budibase/budibase:2.11.41
     container_name: budibase
@@ -50,8 +52,7 @@ services:
     image: portainer/portainer-ce:latest
     container_name: portainer
     ports:
-      - "9000:9000"
-      - "8000:8000"
+      - "9000:9443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
@@ -59,8 +60,40 @@ services:
       - internal_network
     restart: on-failure
 
-volumes:
-  portainer_data:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile.django
+    container_name: django
+    ports:
+      - "8000:8000"
+    networks:
+      - internal_network
+    restart: unless-stopped
+    volumes:
+      - ./IA:/app/IA
+
+  config:
+    build:
+      context: .
+      dockerfile: infra/Dockerfile.python
+    environment:
+      MYSQL_ROOT_PASSWORD : ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE : ${MYSQL_DATABASE}
+      MYSQL_USER : ${MYSQL_USER}
+      MYSQL_PASSWORD : ${MYSQL_PASSWORD}
+      MYSQL_HOST : ${MYSQL_HOST}
+      MYSQL_PORT : ${MYSQL_PORT}
+      MYSQL_FILE : ${MYSQL_FILE}
+    container_name: configPy
+    volumes:
+      - .:/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - internal_network
+
+volumes: 
+  portainer_data: 
 
 networks:
   internal_network:

@@ -4,11 +4,7 @@ import time
 import os
 
 def databaseDump():
-    # Obtém o diretório do script atual
-    script_dir = os.path.dirname(__file__)
-    
-    # Define o caminho para o arquivo backup.sql
-    sql_file_path = "/app/infra/commands/backup.sql"
+    sql_file_path = os.environ['MYSQL_FILE']
 
     # Verifica se o arquivo existe
     if not os.path.exists(sql_file_path):
@@ -48,8 +44,7 @@ def try_connection():
     return None
 
 
-def budibase_ip_catch():
-    connection = try_connection()
+def budibase_ip_catch(connection):
     if connection is None:
         return
 
@@ -64,4 +59,4 @@ def budibase_ip_catch():
 if __name__ == '__main__':
     connection = try_connection()
     databaseDump()
-    budibase_ip_catch()
+    budibase_ip_catch(connection)

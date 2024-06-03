@@ -15,24 +15,24 @@
 </head>
 <body>
     <header>
-        <img class="title" id="image-logo" src="../static/image-removebg.png" alt="logo" width="50" height="50">
-            <h1 class="title" id="mite">MiteHunter</h1>
+        <img class="title" id="image-logo" src="{% static 'image-removebg.png' %}" alt="logo" width="50" height="50">
+        <h1 class="title" id="mite">MiteHunter</h1>
         <div class="nav" id="mynav">
-                <a href="#">Agricultor</a>
-                <a href="#">Propriedade</a>
-                <a href="#">Talhão</a>
-                <a href="#">Cultivo</a>
-                <a href="#">Consultar Amostragem</a>
-                <a href="#">Produtos</a>
-                <a href="#">Cultivar</a>
-                <a href="imagens/{{ c_id }}">Enviar Imagens</a>
-                <a href="https://www.canva.com/">Exportar Dados</a>
+            <a href="#">Agricultor</a>
+            <a href="#">Propriedade</a>
+            <a href="#">Talhão</a>
+            <a href="#">Cultivo</a>
+            <a href="#">Consultar Amostragem</a>
+            <a href="#">Produtos</a>
+            <a href="#">Cultivar</a>
+            <a href="imagens/{{ c_id }}">Enviar Imagens</a>
+            <a href="https://www.canva.com/">Exportar Dados</a>
         </div>
     </header>
 
     {% block content %}
-    
     {% endblock %}
-    
+
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
