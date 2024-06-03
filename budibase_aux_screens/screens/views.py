@@ -11,7 +11,8 @@ def main(request, c_id):
         run_ia()
         return render(request, 'close_window.html', )
     
-    return render(request, 'main.html', {'c_id': c_id})
+    qnt = get_pics_qnt(c_id)
+    return render(request, 'main.html', {'qntPics': qnt, 'c_id': c_id})
 
 
 def upload_files(request, c_id):
