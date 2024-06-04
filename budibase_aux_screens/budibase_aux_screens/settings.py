@@ -39,6 +39,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Configuração de redirecionamento após login/logout
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 ROOT_URLCONF = 'budibase_aux_screens.budibase_aux_screens.urls'
 
 TEMPLATES = [

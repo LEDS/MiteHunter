@@ -6,33 +6,6 @@ __pycache__/
 # C extensions
 *.so
 
-# Images
-*.png
-*.jpg
-*.jpeg
-*.jpe
-*.jif
-*.jfif
-*.jfi
-*.jp2
-*.j2k
-*.jpf
-*.jpx
-*.jpm
-*.mj2
-*.jxr
-*.hdp
-*.wdp
-*.gif
-*.raw
-*.webp
-*.png
-*.apng
-*.mng
-*.tiff
-*.tif
-*.svg
-*.svgz
 
 # Distribution / packaging
 .Python
