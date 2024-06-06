@@ -1,4 +1,3 @@
-
 document.getElementById('showCarouselButton').addEventListener('click', function() {
     const input = document.getElementById('myfile');
     const files = input.files;
