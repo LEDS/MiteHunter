@@ -141,11 +141,11 @@ class SampleTableElements:
     def suggested_action(self, file_name: str, final_class: str) -> str:
         suggested_action = ""
         if final_class == "mais_dez_rajado":
-            suggested_action = "Jogar químico!"
+            suggested_action = "Pulverização química"
         elif final_class == "seis_a_nove_rajado":
-            suggested_action = "Soltar ácaro predador!"
+            suggested_action = "Consultar entomologista"
         elif final_class == "um_a_cinco_rajado":
-            suggested_action = "Jogar água!"
+            suggested_action = "Liberar ácaro predador"
         else:
             suggested_action = "Não fazer nada!"
 
