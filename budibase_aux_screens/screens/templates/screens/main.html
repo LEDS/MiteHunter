@@ -1,0 +1,26 @@
+{% extends "../model/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+    <header>
+        <img class="title" id="image-logo" src="{% static 'imgs/logo.png' %}" alt="logo" width="45" height="45" align="left">
+        <h1 class="title" id="mite">MiteHunter</h1>
+        <div class="nav" id="mynav">
+            {%for table in tables_list%}
+                <a href="{% url 'tables' table_name=table %}"> {{ table }} </a>
+                <!-- <a href="">Enviar imagens</a> -->
+            {%endfor%}
+        </div>
+    </header>
+
+    <div class="table_content" id="table_content">
+        <table class="table" style="width: 50%">
+            {% block table %}
+            {% endblock %}
+        </table>
+    </div>
+
+{% endblock %}
+

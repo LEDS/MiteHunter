@@ -1,0 +1,33 @@
+# Use uma imagem base do Python
+FROM python:3.10.12
+
+# Instale pacotes necessários
+RUN apt-get update && apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+
+# Adicione a chave GPG oficial do Docker
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+# Configurar o repositório estável do Docker
+RUN echo \
+    "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+    $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Atualizar e instalar o Docker CLI
+RUN apt-get update && apt-get install -y docker-ce-cli
+
+# Defina o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copie os arquivos do projeto para o diretório de trabalho no container
+COPY infra/ infra/
+
+# Instale as dependências necessárias (se houver um arquivo requirements.txt)
+RUN pip install mysql-connector-python
+
+# Comando para executar o arquivo Python
+CMD ["python3", "/app/infra/commands/python_config/configuration.py"]

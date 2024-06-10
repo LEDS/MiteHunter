@@ -1,24 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensagem de Sucesso</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .message {
-            margin-top: 20vh; /* Ajuste conforme necessário */
-        }
-    </style>
-</head>
-<body>
-    <div class="message">
-        <p>Todas as fotos foram processadas com sucesso!</p>
-        <p>Ao retornar à aplicação principal e navegue entre as abas laterais para atualizar a tabela.</p>
-        <p> Para retornar, pressione Ctrl+W ou feche a página.</p>
-    </div>
-</body>
-</html>
+{% extends 'main.html' %}
+
+{% block content %}
+    <body>
+        <div class="message">
+            <p>As imagens foram enviadas para processamento. Em breve estarão no painel de Amostragens.</p>
+            <p>Ao retornar à aplicação principal e navegue entre as abas laterais para atualizar a tabela.</p>
+            <p> Para retornar, pressione Ctrl+W ou feche a página.</p>
+        </div>
+    </body>
+{% endblock %}
