@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('<int:c_id>', views.main, name=''),
-    path('imagens/<int:c_id>', views.send_images_page, name='send_images')
+    path('tables/<str:table_name>', views.tables, name='tables')
 ]

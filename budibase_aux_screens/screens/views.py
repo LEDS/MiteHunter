@@ -4,6 +4,18 @@ from django.conf import settings
 from IA.run_ia import run_ia
 from .models import FormFile
 
+
+TABLES_LIST: tuple[str] = (
+    "Agricultor",
+    "Propriedade",
+    "Talhão",
+    "Cultivo",
+    "Consultar",
+    "Cultivar",
+    "Produtos",
+    )
+
+
 def main(request, c_id):
     if request.method == 'POST':
 
@@ -12,7 +24,10 @@ def main(request, c_id):
         return render(request, 'close_window.html', )
     
     qnt = get_pics_qnt(c_id)
-    return render(request, 'main.html', {'qntPics': qnt, 'c_id': c_id})
+    return render(request, 'send_images.html', {'qntPics': qnt, 'c_id': c_id})
+
+def tables(request, table_name: str):
+    return render(request, f'screens/tables/{table_name.lower()}-table.html', {'tables_list': TABLES_LIST})
 
 
 def upload_files(request, c_id):
