@@ -1,12 +1,16 @@
-from .sample_elements import SampleTableElements
-from .jsons_folder_read import *
+from modules.sample_elements import SampleTableElements
+from sahi.predict import predict, get_sliced_prediction
+from modules.jsons_folder_read import *
+from sahi import AutoDetectionModel
 from dataclasses import dataclass
+from sahi.predict import predict
 from __init__ import JSONS_PATH
 from ultralytics import YOLO
 from types import NoneType
 from datetime import date
 from pathlib import Path
 import numpy as np
+from PIL import Image
 import shutil
 import json
 import cv2
@@ -35,9 +39,9 @@ class ErrorImage:
 
 
 class OutputCounter:
-    def __init__(self, *, model: YOLO, input_images_path: Path, processed_images_path: Path,
+    def __init__(self, *, model: Path, input_images_path: Path, processed_images_path: Path,
                 bouding_box_processed_images_path: Path, error_images_path: Path, yolo_predict_path: Path):
-        self.model: YOLO = model
+        self.model_path: Path = model
         self.input_images_path: Path = input_images_path
         self.processed_images_path: Path = processed_images_path
         self.bouding_box_processed_images_path = bouding_box_processed_images_path
@@ -88,15 +92,35 @@ class OutputCounter:
             californicus = 0
         )
 
-        cv2_image: np.ndarray = cv2.imread(str(img_path))
-        cv2_image_resized: np.ndarray = cv2.resize(cv2_image, (640, 640))
-
-        results = self.model(
-            source = cv2_image_resized,
-            save = False
+        
+        # Detection model initialization
+        detection_model = AutoDetectionModel.from_pretrained(
+            model_type="yolov8",
+            model_path=self.model_path,
+            confidence_threshold=0.3,
+            device="cuda:0",
         )
 
-        for _class in results[0].boxes.cls:
+        # Making predictions using SAHI to detect smaller objects
+        result = get_sliced_prediction(
+            image=Image.open(img_path),
+            detection_model=detection_model,
+            slice_height=640,
+            slice_width=640,
+            overlap_height_ratio=0.2,
+            overlap_width_ratio=0.2,
+            postprocess_class_agnostic=True,
+        )
+
+        # Exporting image with bounding boxes
+        result.export_visuals(export_dir=bouding_box_img_path,text_size=1)
+
+        # Accessing the list of predicted objects
+        object_prediction_list = result.object_prediction_list
+
+        # Using a for to access the id of each category/bounding box
+        for i in object_prediction_list:
+            _class = i.category.id
             match _class:
                 case 0: counted.californicus += 1
                 case 1: counted.macropilis += 1
@@ -123,7 +147,7 @@ class OutputCounter:
             for img_path in images:
                 try:
                     processed_img_path = folder_name_processed_images_path / img_path.name
-                    bb_processed_img_path = bouding_box_processed_images_path / img_path.name
+                    bb_processed_img_path = Path(str(folder_name_processed_images_path) + "\\bounding_boxes")
                     if not folder_name_processed_images_path.exists():
                         folder_name_processed_images_path.mkdir()
                     

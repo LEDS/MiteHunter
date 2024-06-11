@@ -8,12 +8,11 @@ def executar(counter):
 
 def main(model_path: Path, input_images_path: Path, processed_images_path: Path, error_images_path: Path,
             bouding_box_processed_images_path: Path, yolo_predict_path: Path):
-    print("CRIANDO MODELO")
-    model = YOLO(model = model_path)
+    
     print("CRIANDO CONTADOR")
     
     counter = OutputCounter(
-        model = model,
+        model = model_path,
         input_images_path = input_images_path,
         processed_images_path = processed_images_path,
         bouding_box_processed_images_path = bouding_box_processed_images_path,
