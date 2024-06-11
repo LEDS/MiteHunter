@@ -1,11 +1,26 @@
 {% extends 'main.html' %}
 
 {% block content %}
-    <body>
-        <div class="message">
-            <p>As imagens foram enviadas para processamento. Em breve estarão no painel de Amostragens.</p>
-            <p>Ao retornar à aplicação principal e navegue entre as abas laterais para atualizar a tabela.</p>
-            <p> Para retornar, pressione Ctrl+W ou feche a página.</p>
-        </div>
-    </body>
+
+<style>
+    .message {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 50px auto;
+        max-width: 600px;
+        text-align: center;
+    }
+
+</style>
+    
+    <div class="message">
+        <p>As imagens foram enviadas para processamento. Em breve estarão no painel de Amostragens.</p>
+        <p>Ao retornar à aplicação principal, navegue entre as abas laterais para atualizar a tabela.</p>
+        <p>Para retornar, pressione Ctrl+W ou feche a página.</p>
+    </div>
+
 {% endblock %}
+
+
