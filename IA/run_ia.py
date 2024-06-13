@@ -1,5 +1,5 @@
-from .modules.read_process_ia import OutputCounter
 from .__init__ import INPUT_IMAGES_PATH, MODEL_PATH, PROCESSED_IMAGES_PATH, ERROR_IMAGES_PATH, BOUDING_BOX_PROCESSED_IMAGES_PATH, YOLO_PREDICT_PATH
+from .modules.read_process_ia import OutputCounter
 from ultralytics import YOLO
 from pathlib import Path
 

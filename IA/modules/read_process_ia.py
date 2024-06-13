@@ -1,16 +1,16 @@
-from modules.sample_elements import SampleTableElements
 from sahi.predict import predict, get_sliced_prediction
-from modules.jsons_folder_read import *
+from .sample_elements import SampleTableElements
 from sahi import AutoDetectionModel
 from dataclasses import dataclass
+from .jsons_folder_read import *
 from sahi.predict import predict
 from __init__ import JSONS_PATH
 from ultralytics import YOLO
 from types import NoneType
 from datetime import date
 from pathlib import Path
-import numpy as np
 from PIL import Image
+import numpy as np
 import shutil
 import json
 import cv2
@@ -85,14 +85,13 @@ class OutputCounter:
         with open(json_file_path, "w") as json_file:
             json.dump(data_list, json_file)
 
-    def count_image(self, img_path: Path, bouding_box_img_path: Path) -> Counted:
+    def count_image(self, img_path: Path, bouding_box_img_path: Path, original_image_name:str) -> Counted:
         counted = Counted(
             rajado = 0,
             macropilis = 0,
             californicus = 0
         )
 
-        
         # Detection model initialization
         detection_model = AutoDetectionModel.from_pretrained(
             model_type="yolov8",
@@ -112,8 +111,17 @@ class OutputCounter:
             postprocess_class_agnostic=True,
         )
 
+        names = {
+            "Rajado": "R",
+            "Californicus": "C",
+            "Macropilis": "M"
+        }
+
+        for obj in result.object_prediction_list:
+            obj.category.name = names[obj.category.name]
+
         # Exporting image with bounding boxes
-        result.export_visuals(export_dir=bouding_box_img_path,text_size=1)
+        result.export_visuals(export_dir=bouding_box_img_path, file_name=original_image_name, text_size=1.25, rect_th=3)
 
         # Accessing the list of predicted objects
         object_prediction_list = result.object_prediction_list
@@ -141,25 +149,26 @@ class OutputCounter:
             folder_name_processed_images_path = self.processed_images_path / folder_name
             bouding_box_processed_images_path = self.bouding_box_processed_images_path / folder_name
             folder_name_error_images_path = self.error_images_path / folder_name
-
+            
             # Para cada usuário, roda o modelo em cada arquivo
             images: list[Path] = [item for item in folder.iterdir() if item.is_file()]
             for img_path in images:
                 try:
                     processed_img_path = folder_name_processed_images_path / img_path.name
-                    bb_processed_img_path = Path(str(folder_name_processed_images_path) + "\\bounding_boxes")
+                    bb_processed_img_path = folder_name_processed_images_path
+                    
                     if not folder_name_processed_images_path.exists():
                         folder_name_processed_images_path.mkdir()
                     
-                    counts = self.count_image(img_path, bb_processed_img_path)
+                    image_name_split = (img_path.name).split(".")
+                    original_image_name = image_name_split[0] + "_BB"
                     
-                    
-                    processed_img_path.__str__()
+                    counts = self.count_image(img_path, bb_processed_img_path, original_image_name)
                     
                     self.processed_images = {
                         "cultivo_id": int(cultivo_id),
                         "imgOrig": str(processed_img_path),
-                        "imgProc": "",
+                        "imgProc": f"{str(bouding_box_processed_images_path)}\\{original_image_name}",
                         "data_Amos":sample_date,
                         "rajado": counts.rajado,
                         "macropilis": counts.macropilis,
@@ -171,7 +180,6 @@ class OutputCounter:
                     self.move_file(img_path, processed_img_path)
                     self.processed_images.clear()
                     self.remove_folder(folder, folder_name)
-                    
-                
+                                    
                 except Exception as e:
                     print(e)

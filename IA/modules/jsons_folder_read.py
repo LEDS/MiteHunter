@@ -54,7 +54,7 @@ def read_json_data(dict_sample_elements):
             os.replace(source,dest)
 
             create_sample(informations[0])
-
+            
             for value in informations:
                 insert_database(value)
                 

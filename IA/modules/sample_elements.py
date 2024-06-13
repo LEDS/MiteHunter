@@ -141,14 +141,14 @@ class SampleTableElements:
     def suggested_action(self, file_name: str, final_class: str) -> str:
         suggested_action = ""
         if final_class == "mais_dez_rajado":
-            suggested_action = "Pulverização química"
+            suggested_action = "Pulverizar Químico."
         elif final_class == "seis_a_nove_rajado":
-            suggested_action = "Consultar entomologista"
+            suggested_action = "Chamar Entomologista."
         elif final_class == "um_a_cinco_rajado":
-            suggested_action = "Liberar ácaro predador"
+            suggested_action = "Liberar 2 predadores por planta."
         else:
-            suggested_action = "Não fazer nada!"
-
+            suggested_action = "Apenas manter observação."
+        
         self.file_count_dict[file_name]["acao_sugerida"] = suggested_action
 
         self.reset_suggested_action()  # Reset suggested_action after processing
