@@ -35,17 +35,14 @@ CREATE TABLE `Agricultor` (
   UNIQUE KEY `cpf_3` (`cpf`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `telefone` (`telefone`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `Agricultor`
 --
 
-LOCK TABLES `Agricultor` WRITE;
-/*!40000 ALTER TABLE `Agricultor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Agricultor` ENABLE KEYS */;
-UNLOCK TABLES;
+
 
 --
 -- Table structure for table `Amostragem`
@@ -58,22 +55,63 @@ CREATE TABLE `Amostragem` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `data_Amos` date NOT NULL,
   `cultivo_id` bigint unsigned NOT NULL,
-  `classificacao_final` text,-- Host: localhost    Database: MiteHunter
-
+  `classificacao_final` text,
+  `media_rajado_foliolo` float(8,2) DEFAULT NULL,
+  `acao_sugerida` text,
+  `qtd_total` smallint DEFAULT NULL,
+  `seis_a_nove` float(8,2) DEFAULT NULL,
+  `mais_dez` float(8,2) DEFAULT NULL,
+  `um_a_cinco` float(8,2) DEFAULT NULL,
+  `sem_predador_rajado` float(8,2) DEFAULT NULL,
+  `predador_sem_rajado` float(8,2) DEFAULT NULL,
+  `com_predador_rajado` float(8,2) DEFAULT NULL,
+  `data_Amos_bud` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `cultivo_id` (`cultivo_id`),
   CONSTRAINT `Amostragem_ibfk_1` FOREIGN KEY (`cultivo_id`) REFERENCES `Cultivo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=195 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `Amostragem`
 --
 
-LOCK TABLES `Amostragem` WRITE;
-/*!40000 ALTER TABLE `Amostragem` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Amostragem` ENABLE KEYS */;
-UNLOCK TABLES;
+
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `Amostragem_BEFORE_INSERT` BEFORE INSERT ON `Amostragem` FOR EACH ROW BEGIN
+	SET NEW.data_Amos_bud = NEW.data_Amos + INTERVAL 1 DAY;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `Amostragem_BEFORE_UPDATE` BEFORE UPDATE ON `Amostragem` FOR EACH ROW BEGIN
+	SET NEW.data_Amos_bud = NEW.data_Amos + INTERVAL 1 DAY;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `BudibaseIpCatch`
@@ -115,23 +153,61 @@ CREATE TABLE `Cultivo` (
   `tipoCultivar_id` bigint unsigned NOT NULL,
   `nome` varchar(200) DEFAULT NULL,
   `forma` int DEFAULT NULL,
+  `dataIni_bud` date DEFAULT NULL,
+  `dataFim_bud` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `talhao_id` (`talhao_id`),
   KEY `tipoCultivar_id` (`tipoCultivar_id`),
   CONSTRAINT `Cultivo_ibfk_1` FOREIGN KEY (`talhao_id`) REFERENCES `Talhao` (`id`),
   CONSTRAINT `Cultivo_ibfk_2` FOREIGN KEY (`tipoCultivar_id`) REFERENCES `TipoCultivar` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `Cultivo`
 --
 
-LOCK TABLES `Cultivo` WRITE;
-/*!40000 ALTER TABLE `Cultivo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Cultivo` ENABLE KEYS */;
-UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `Cultivo_BEFORE_INSERT` BEFORE INSERT ON `Cultivo` FOR EACH ROW BEGIN
+	SET NEW.dataIni_bud = NEW.dataIni + INTERVAL 1 DAY;
+    IF NEW.dataFim_bud IS NOT NULL THEN
+		SET NEW.dataFim_bud = NEW.dataFim + INTERVAL 1 DAY;
+	END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `Cultivo_BEFORE_UPDATE` BEFORE UPDATE ON `Cultivo` FOR EACH ROW BEGIN
+	SET NEW.dataIni_bud = NEW.dataIni + INTERVAL 1 DAY;
+    IF NEW.dataFim_bud IS NOT NULL THEN
+		SET NEW.dataFim_bud = NEW.dataFim + INTERVAL 1 DAY;
+	END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `Decisao`
@@ -150,22 +226,81 @@ CREATE TABLE `Decisao` (
   `quantidade` int DEFAULT NULL,
   `volume` int DEFAULT NULL,
   `amostragem_id` bigint unsigned NOT NULL,
+  `data_Deci_bud` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `produto_id` (`produto_id`),
   KEY `amostragem_id` (`amostragem_id`),
   CONSTRAINT `Decisao_ibfk_1` FOREIGN KEY (`produto_id`) REFERENCES `Produto` (`id`),
   CONSTRAINT `Decisao_ibfk_2` FOREIGN KEY (`amostragem_id`) REFERENCES `Amostragem` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `Decisao`
 --
 
-LOCK TABLES `Decisao` WRITE;
-/*!40000 ALTER TABLE `Decisao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Decisao` ENABLE KEYS */;
+
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `Decisao_BEFORE_INSERT` BEFORE INSERT ON `Decisao` FOR EACH ROW BEGIN
+	SET NEW.data_Deci_bud = NEW.data_Deci + INTERVAL 1 DAY;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `Decisao_BEFORE_UPDATE` BEFORE UPDATE ON `Decisao` FOR EACH ROW BEGIN
+	SET NEW.data_Deci_bud = NEW.data_Deci + INTERVAL 1 DAY;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `Distrito`
+--
+
+DROP TABLE IF EXISTS `Distrito`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Distrito` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  `municipio_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_municipio_id` (`municipio_id`),
+  CONSTRAINT `fk_municipio_id` FOREIGN KEY (`municipio_id`) REFERENCES `Municipio` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Distrito`
+--
+
+LOCK TABLES `Distrito` WRITE;
+/*!40000 ALTER TABLE `Distrito` DISABLE KEYS */;
+INSERT INTO `Distrito` VALUES (1,'distrito 1',1),(2,'distrito 2',2),(3,'distrito 3',3),(4,'distrito 4',4);
+/*!40000 ALTER TABLE `Distrito` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -189,16 +324,37 @@ CREATE TABLE `Foliolo` (
   UNIQUE KEY `id` (`id`),
   KEY `amostragem_id` (`amostragem_id`),
   CONSTRAINT `Foliolo_ibfk_1` FOREIGN KEY (`amostragem_id`) REFERENCES `Amostragem` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=875 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1051 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `Foliolo`
 --
 
-LOCK TABLES `Foliolo` WRITE;
-/*!40000 ALTER TABLE `Foliolo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Foliolo` ENABLE KEYS */;
+
+
+--
+-- Table structure for table `Municipio`
+--
+
+DROP TABLE IF EXISTS `Municipio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Municipio` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Municipio`
+--
+
+LOCK TABLES `Municipio` WRITE;
+/*!40000 ALTER TABLE `Municipio` DISABLE KEYS */;
+INSERT INTO `Municipio` VALUES (1,'Afonso Cláudio'),(2,'Domingos Martins'),(3,'Santa Maria de Jetibá'),(4,'Venda Nova do Imigrante');
+/*!40000 ALTER TABLE `Municipio` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -234,7 +390,7 @@ CREATE TABLE `Produto` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `nome` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +399,7 @@ CREATE TABLE `Produto` (
 
 LOCK TABLES `Produto` WRITE;
 /*!40000 ALTER TABLE `Produto` DISABLE KEYS */;
-INSERT INTO `Produto` VALUES (1,' Abadin 72 EC ',NULL,NULL),(2,'Abamectin Nortox',NULL,NULL),(3,'  Abamectin Prentis',2,1),(4,' Abamectin 72 EC Norto',NULL,NULL),(5,' Abamex     ',NULL,NULL),(6,' Abamex Max',NULL,NULL),(7,' Acarige',NULL,NULL),(8,' Acarit EC',NULL,NULL),(9,' Adver 240 S',NULL,NULL),(10,' Azamax',NULL,NULL),(11,' Borea',NULL,NULL),(12,' Clorfenapir Nortox',NULL,NULL),(13,' DalNeem E',NULL,NULL),(14,' Danimen 300 E',NULL,NULL),(15,' Devamectin 18 E',NULL,NULL),(16,' Epime',NULL,NULL),(17,' Fujimite 50 S',NULL,NULL),(18,' Kumulus DF',NULL,NULL),(19,' Matrine; Biophora; Oxymatrine; ',NULL,NULL),(20,' Meothrin 30',NULL,NULL),(21,' MilbekNoc',NULL,NULL),(22,' Omite 720 E',NULL,NULL),(23,' Ortus 50 S',NULL,NULL),(24,' Pausat',NULL,NULL),(25,' Pirat',NULL,NULL),(26,' Potenza Sino',NULL,NULL),(27,' Potenza Sinon Plus 36 E',NULL,NULL),(28,' Propargite Fersol 720 E',NULL,NULL),(29,' Sanmite E',NULL,NULL),(30,' Sumirody 30',NULL,NULL),(31,' Trigger 240 S',NULL,NULL),(32,' Veromit',NULL,NULL),(33,'Vertimec 18 EC   Abamectin Prentis',NULL,NULL);
+INSERT INTO `Produto` VALUES (1,' Abadin 72 EC ',0,2),(2,'Abamectin Nortox',NULL,NULL),(3,'  Abamectin Prentis',1,1),(6,' Abamex Max',NULL,2),(7,' Acarige',NULL,NULL),(8,' Acarit EC',NULL,NULL),(9,' Adver 240 S',0,2),(10,' Azamax',NULL,NULL),(11,' Borea',NULL,NULL),(12,' Clorfenapir Nortox',NULL,NULL),(13,' DalNeem E',NULL,NULL),(14,' Danimen 300 E',NULL,NULL),(15,' Devamectin 18 E',NULL,NULL),(16,' Epime',NULL,NULL),(17,' Fujimite 50 S',NULL,NULL),(18,' Kumulus DF',NULL,NULL),(19,' Matrine; Biophora; Oxymatrine; ',NULL,NULL),(20,' Meothrin 30',NULL,NULL),(21,' MilbekNoc',NULL,NULL),(22,' Omite 720 E',NULL,NULL),(23,' Ortus 50 S',NULL,NULL),(24,' Pausat',NULL,NULL),(25,' Pirat',NULL,NULL),(26,' Potenza Sino',NULL,NULL),(27,' Potenza Sinon Plus 36 E',NULL,NULL),(28,' Propargite Fersol 720 E',NULL,NULL),(29,' Sanmite E',NULL,NULL),(30,' Sumirody 30',NULL,NULL),(31,' Trigger 240 S',NULL,NULL),(32,' Veromit',NULL,NULL),(33,'Vertimec 18 EC   Abamectin Prentis',NULL,NULL),(69,'A',NULL,NULL);
 /*!40000 ALTER TABLE `Produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,24 +414,24 @@ CREATE TABLE `Propriedade` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `ponto` point DEFAULT NULL,
-  `distrito` varchar(100) DEFAULT NULL,
-  `municipio` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `agricultor_id` bigint unsigned NOT NULL,
+  `distrito_id` bigint unsigned DEFAULT NULL,
+  `municipio` varchar(10) DEFAULT NULL,
+  `distrito` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   KEY `agricultor_id` (`agricultor_id`),
+  KEY `fk_propriedade_distrito` (`distrito_id`),
+  CONSTRAINT `fk_propriedade_distrito` FOREIGN KEY (`distrito_id`) REFERENCES `Distrito` (`id`),
   CONSTRAINT `Propriedade_ibfk_1` FOREIGN KEY (`agricultor_id`) REFERENCES `Agricultor` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `Propriedade`
 --
 
-LOCK TABLES `Propriedade` WRITE;
-/*!40000 ALTER TABLE `Propriedade` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Propriedade` ENABLE KEYS */;
-UNLOCK TABLES;
+
 
 --
 -- Table structure for table `Talhao`
@@ -295,17 +451,13 @@ CREATE TABLE `Talhao` (
   UNIQUE KEY `id` (`id`),
   KEY `propriedade_id` (`propriedade_id`),
   CONSTRAINT `Talhao_ibfk_1` FOREIGN KEY (`propriedade_id`) REFERENCES `Propriedade` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `Talhao`
 --
 
-LOCK TABLES `Talhao` WRITE;
-/*!40000 ALTER TABLE `Talhao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Talhao` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `TipoCultivar`
@@ -359,4 +511,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-29 18:48:17
+-- Dump completed on 2024-06-13 19:00:46
