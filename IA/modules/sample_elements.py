@@ -97,7 +97,7 @@ class SampleTableElements:
         # Calculate and store percentage
         percentage_key = f"{key}_percentage"
         self.file_count_dict[file_name][percentage_key] = (
-            self.file_count_dict[file_name][key] / total_foliolos
+            self.file_count_dict[file_name][key] / total_foliolos * 100
         )
 
         # Remove original count key and value
@@ -119,7 +119,7 @@ class SampleTableElements:
             l = []
 
     def final_classification(self) -> str:
-        max_priority_percentage = 0.3  # Threshold for prioritized classifications
+        max_priority_percentage = 30  # Threshold for prioritized classifications
         prioritized_keys = ["mais_dez_rajado_percentage", "seis_a_nove_rajado_percentage", "um_a_cinco_rajado_percentage"]
         max_percentage = 0
         final_class = ""
@@ -148,7 +148,7 @@ class SampleTableElements:
             suggested_action = "Liberar 2 predadores por planta."
         else:
             suggested_action = "Apenas manter observação."
-        
+
         self.file_count_dict[file_name]["acao_sugerida"] = suggested_action
 
         self.reset_suggested_action()  # Reset suggested_action after processing
