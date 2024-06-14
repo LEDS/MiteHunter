@@ -17,6 +17,15 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
             event.preventDefault();
         }
     }
+
+    //verifica se a data foi preenchida
+    const dateInput = document.getElementById('date').value;
+    if (!dateInput) {
+        const confirmSend = confirm(`Como a data não foi preenchida, será considerada a data de hoje.`);
+        if (!confirmSend) {
+            event.preventDefault();
+        }
+    }
 });
 
 
