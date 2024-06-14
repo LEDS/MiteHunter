@@ -63,7 +63,7 @@ services:
   django:
     build:
       context: .
-      dockerfile: Dockerfile.django
+      dockerfile: infra/Dockerfile.django
     container_name: django
     ports:
       - "8000:8000"

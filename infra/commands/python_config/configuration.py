@@ -12,7 +12,7 @@ def databaseDump():
         return
 
     # Recupera a senha do MySQL a partir das variáveis de ambiente
-    mysql_password = os.getenv('MYSQL_ROOT_PASSWORD')
+    mysql_password = os.environ['MYSQL_PASSWORD']
 
     # Comando que você deseja executar
     command = f"cat {sql_file_path} | docker exec -i mysql /usr/bin/mysql -u root --password={mysql_password} MiteHunter"

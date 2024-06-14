@@ -1,3 +1,35 @@
+// Aviso de quantidade de arquivos   
+document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    const input = document.getElementById('myfile');
+    const files = input.files;
+    const qntFiles = files.length;
+    const maxFiles = qntPics;
+
+    // Criando um elemento div para armazenar a quantidade de fotos
+    const djangoDataDiv = document.createElement('div');
+    djangoDataDiv.setAttribute('id', 'django-data');
+    djangoDataDiv.setAttribute('data', qntPics);
+    document.body.appendChild(djangoDataDiv);
+
+    if (qntFiles < maxFiles) {
+        const confirmSend = confirm(`Você selecionou menos de ${maxFiles} imagens. Deseja continuar com o envio?`);
+        if (!confirmSend) {
+            event.preventDefault();
+        }
+    }
+
+    //verifica se a data foi preenchida
+    const dateInput = document.getElementById('date').value;
+    if (!dateInput) {
+        const confirmSend = confirm(`Como a data não foi preenchida, será considerada a data de hoje.`);
+        if (!confirmSend) {
+            event.preventDefault();
+        }
+    }
+});
+
+
+// Carrossel
 document.getElementById('showCarouselButton').addEventListener('click', function() {
     const input = document.getElementById('myfile');
     const files = input.files;
