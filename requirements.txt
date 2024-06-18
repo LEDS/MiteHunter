@@ -7,5 +7,6 @@ ultralytics==8.2.3
 dill==0.3.8
 aiomysql==0.2.0
 opencv-python==4.7.0.72
+supervision==0.21.0
 sahi==0.11.15
-supervision
+numpy<2.0.0
