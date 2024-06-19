@@ -97,7 +97,7 @@ class OutputCounter:
             model_type="yolov8",
             model_path=self.model_path,
             confidence_threshold=0.3,
-            device="cuda:0",
+            device="cpu",
         )
 
         # Making predictions using SAHI to detect smaller objects
