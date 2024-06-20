@@ -1,4 +1,5 @@
 from sahi.predict import predict, get_sliced_prediction
+from .convert_image_fromRGBA_toRGB import convert_image_RGBA_RGB
 from .sample_elements import SampleTableElements
 from sahi import AutoDetectionModel
 from dataclasses import dataclass
@@ -12,6 +13,7 @@ from pathlib import Path
 from PIL import Image
 import numpy as np
 import shutil
+import torch
 import json
 import cv2
 import os
@@ -91,14 +93,20 @@ class OutputCounter:
             macropilis = 0,
             californicus = 0
         )
+        
+        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+        print(f"O código está rodando no seguinte dispositivo: {device}")
 
         # Detection model initialization
         detection_model = AutoDetectionModel.from_pretrained(
             model_type="yolov8",
             model_path=self.model_path,
             confidence_threshold=0.3,
-            device="cpu",
+            device=device,
         )
+
+        convert_image_RGBA_RGB(filename=str(img_path))
 
         # Making predictions using SAHI to detect smaller objects
         result = get_sliced_prediction(
@@ -109,6 +117,7 @@ class OutputCounter:
             overlap_height_ratio=0.2,
             overlap_width_ratio=0.2,
             postprocess_class_agnostic=True,
+            verbose = 2,
         )
 
         names = {
