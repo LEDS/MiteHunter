@@ -42,11 +42,7 @@ CREATE TABLE `Agricultor` (
 -- Dumping data for table `Agricultor`
 --
 
-LOCK TABLES `Agricultor` WRITE;
-/*!40000 ALTER TABLE `Agricultor` DISABLE KEYS */;
-INSERT INTO `Agricultor` VALUES (31,'Mark','19817283716','jsdj@123.com','2799982172');
-/*!40000 ALTER TABLE `Agricultor` ENABLE KEYS */;
-UNLOCK TABLES;
+
 
 --
 -- Table structure for table `Amostragem`
@@ -81,11 +77,7 @@ CREATE TABLE `Amostragem` (
 -- Dumping data for table `Amostragem`
 --
 
-LOCK TABLES `Amostragem` WRITE;
-/*!40000 ALTER TABLE `Amostragem` DISABLE KEYS */;
-INSERT INTO `Amostragem` VALUES (177,'2024-06-20',51,'Em média, mais de 10 ácaros rajados por amostra.',0.00,'Pulverizar Produto Químico Compatível',1,0.00,100.00,0.00,0.00,0.00,0.00,'2024-06-21'),(189,'2024-06-10',51,'Todas as amostra que possuem ácaro rajado possuem ácaro predador.',0.00,'Tudo Ok. Manter em observação.',1,0.00,0.00,0.00,0.00,0.00,100.00,'2024-06-11');
-/*!40000 ALTER TABLE `Amostragem` ENABLE KEYS */;
-UNLOCK TABLES;
+
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -140,7 +132,7 @@ CREATE TABLE `BudibaseIpCatch` (
 
 LOCK TABLES `BudibaseIpCatch` WRITE;
 /*!40000 ALTER TABLE `BudibaseIpCatch` DISABLE KEYS */;
-INSERT INTO `BudibaseIpCatch` VALUES ('172.19.105.29');
+INSERT INTO `BudibaseIpCatch` VALUES ('172.19.105.27');
 /*!40000 ALTER TABLE `BudibaseIpCatch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,11 +168,6 @@ CREATE TABLE `Cultivo` (
 -- Dumping data for table `Cultivo`
 --
 
-LOCK TABLES `Cultivo` WRITE;
-/*!40000 ALTER TABLE `Cultivo` DISABLE KEYS */;
-INSERT INTO `Cultivo` VALUES (51,'2024-06-10',NULL,12,122,62,15,NULL,1,'2024-06-11',NULL);
-/*!40000 ALTER TABLE `Cultivo` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -253,11 +240,7 @@ CREATE TABLE `Decisao` (
 -- Dumping data for table `Decisao`
 --
 
-LOCK TABLES `Decisao` WRITE;
-/*!40000 ALTER TABLE `Decisao` DISABLE KEYS */;
-INSERT INTO `Decisao` VALUES (25,'Nada a Fazer','2024-06-06',NULL,'','',0,0,189,'2024-06-07');
-/*!40000 ALTER TABLE `Decisao` ENABLE KEYS */;
-UNLOCK TABLES;
+
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -348,11 +331,7 @@ CREATE TABLE `Foliolo` (
 -- Dumping data for table `Foliolo`
 --
 
-LOCK TABLES `Foliolo` WRITE;
-/*!40000 ALTER TABLE `Foliolo` DISABLE KEYS */;
-INSERT INTO `Foliolo` VALUES (1049,NULL,NULL,12,0,0,177,NULL,NULL),(1050,NULL,NULL,12,12,0,189,NULL,NULL);
-/*!40000 ALTER TABLE `Foliolo` ENABLE KEYS */;
-UNLOCK TABLES;
+
 
 --
 -- Table structure for table `Municipio`
@@ -420,7 +399,7 @@ CREATE TABLE `Produto` (
 
 LOCK TABLES `Produto` WRITE;
 /*!40000 ALTER TABLE `Produto` DISABLE KEYS */;
-INSERT INTO `Produto` VALUES (1,' Abadin 72 EC ',0,2),(2,'Abamectin Nortox',NULL,NULL),(3,'  Abamectin Prentis',1,1),(6,' Abamex Max',NULL,2),(7,' Acarige',NULL,NULL),(8,' Acarit EC',NULL,NULL),(9,' Adver 240 S',0,2),(10,' Azamax',NULL,NULL),(11,' Borea',NULL,NULL),(12,' Clorfenapir Nortox',NULL,NULL),(13,' DalNeem E',NULL,NULL),(14,' Danimen 300 E',NULL,NULL),(15,' Devamectin 18 E',NULL,NULL),(16,' Epime',NULL,NULL),(17,' Fujimite 50 S',NULL,NULL),(18,' Kumulus DF',NULL,NULL),(19,' Matrine; Biophora; Oxymatrine; ',NULL,NULL),(20,' Meothrin 30',NULL,NULL),(21,' MilbekNoc',NULL,NULL),(22,' Omite 720 E',NULL,NULL),(23,' Ortus 50 S',NULL,NULL),(24,' Pausat',NULL,NULL),(25,' Pirat',NULL,NULL),(26,' Potenza Sino',NULL,NULL),(27,' Potenza Sinon Plus 36 E',NULL,NULL),(28,' Propargite Fersol 720 E',NULL,NULL),(29,' Sanmite E',NULL,NULL),(30,' Sumirody 30',NULL,NULL),(31,' Trigger 240 S',NULL,NULL),(32,' Veromit',NULL,NULL),(33,'Vertimec 18 EC   Abamectin Prentis',NULL,NULL),(69,'A',NULL,NULL);
+INSERT INTO `Produto` VALUES (1,' Abadin 72 EC ',0,2),(2,'Abamectin Nortox',NULL,NULL),(3,'  Abamectin Prentis',NULL,NULL),(6,' Abamex Max',NULL,2),(7,' Acarige',NULL,NULL),(8,' Acarit EC',NULL,NULL),(9,' Adver 240 S',NULL,NULL),(10,' Azamax',NULL,NULL),(11,' Borea',NULL,NULL),(12,' Clorfenapir Nortox',NULL,NULL),(13,' DalNeem E',NULL,NULL),(14,' Danimen 300 E',NULL,NULL),(15,' Devamectin 18 E',NULL,NULL),(16,' Epime',NULL,NULL),(17,' Fujimite 50 S',NULL,NULL),(18,' Kumulus DF',NULL,NULL),(19,' Matrine; Biophora; Oxymatrine; ',NULL,NULL),(20,' Meothrin 30',NULL,NULL),(21,' MilbekNoc',NULL,NULL),(22,' Omite 720 E',NULL,NULL),(23,' Ortus 50 S',NULL,NULL),(24,' Pausat',NULL,NULL),(25,' Pirat',NULL,NULL),(26,' Potenza Sino',NULL,NULL),(27,' Potenza Sinon Plus 36 E',NULL,NULL),(28,' Propargite Fersol 720 E',NULL,NULL),(29,' Sanmite E',NULL,NULL),(30,' Sumirody 30',NULL,NULL),(31,' Trigger 240 S',NULL,NULL),(32,' Veromit',NULL,NULL),(33,'Vertimec 18 EC   Abamectin Prentis',NULL,NULL),(69,'A',NULL,NULL);
 /*!40000 ALTER TABLE `Produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -452,11 +431,7 @@ CREATE TABLE `Propriedade` (
 -- Dumping data for table `Propriedade`
 --
 
-LOCK TABLES `Propriedade` WRITE;
-/*!40000 ALTER TABLE `Propriedade` DISABLE KEYS */;
-INSERT INTO `Propriedade` VALUES (74,'Props',NULL,31,3,NULL,NULL);
-/*!40000 ALTER TABLE `Propriedade` ENABLE KEYS */;
-UNLOCK TABLES;
+
 
 --
 -- Table structure for table `Talhao`
@@ -483,11 +458,6 @@ CREATE TABLE `Talhao` (
 -- Dumping data for table `Talhao`
 --
 
-LOCK TABLES `Talhao` WRITE;
-/*!40000 ALTER TABLE `Talhao` DISABLE KEYS */;
-INSERT INTO `Talhao` VALUES (62,'Talho',123,74,1.00,122.00);
-/*!40000 ALTER TABLE `Talhao` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `TipoCultivar`
