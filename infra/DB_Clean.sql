@@ -299,7 +299,7 @@ CREATE TABLE `Distrito` (
 
 LOCK TABLES `Distrito` WRITE;
 /*!40000 ALTER TABLE `Distrito` DISABLE KEYS */;
-INSERT INTO `Distrito` VALUES (1,'distrito 1',1),(2,'distrito 2',2),(3,'distrito 3',3),(4,'distrito 4',4);
+INSERT INTO `Distrito` VALUES (1, 'Afonso Cláudio (sede)', 1), (2, 'Piracema', 1), (3, 'Fazenda Guandu', 1), (4, 'Pontões', 1), (5, 'Serra Pelada (Lagoa)', 1), (6, 'São Francisco Xavier do Guandu', 1), (7, 'Ibicaba', 1), (8, 'Mata Fria', 1), (9, 'São Luís de Boa Sorte', 1), (10, 'Aracê', 2), (11, 'Biriricas', 2), (12, 'Centro', 2), (13, 'Melgaço', 2), (14, 'Paraju', 2), (15, 'Pedra Azul de Aracê', 2), (16, 'Ponto Alto', 2), (17, 'Santa Isabel', 2), (18, 'São Paulino do Aracê', 2), (19, 'Vale da Estação', 2), (20, 'Alto Rio Posmosser', 3), (21, 'Caramuru', 3), (22, 'Centro', 3), (23, 'Garrafão', 3), (24, 'Rio Bonito', 3), (25, 'São João do Garrafão', 3), (26, 'Sao Sebastiao de Belem', 3), (27, 'Alto Caxixe', 4), (28, 'Centro', 4), (29, 'São João de Viçosa', 4);
 /*!40000 ALTER TABLE `Distrito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -399,7 +399,7 @@ CREATE TABLE `Produto` (
 
 LOCK TABLES `Produto` WRITE;
 /*!40000 ALTER TABLE `Produto` DISABLE KEYS */;
-INSERT INTO `Produto` VALUES (1,' Abadin 72 EC ',0,2),(2,'Abamectin Nortox',NULL,NULL),(3,'  Abamectin Prentis',1,1),(6,' Abamex Max',NULL,2),(7,' Acarige',NULL,NULL),(8,' Acarit EC',NULL,NULL),(9,' Adver 240 S',0,2),(10,' Azamax',NULL,NULL),(11,' Borea',NULL,NULL),(12,' Clorfenapir Nortox',NULL,NULL),(13,' DalNeem E',NULL,NULL),(14,' Danimen 300 E',NULL,NULL),(15,' Devamectin 18 E',NULL,NULL),(16,' Epime',NULL,NULL),(17,' Fujimite 50 S',NULL,NULL),(18,' Kumulus DF',NULL,NULL),(19,' Matrine; Biophora; Oxymatrine; ',NULL,NULL),(20,' Meothrin 30',NULL,NULL),(21,' MilbekNoc',NULL,NULL),(22,' Omite 720 E',NULL,NULL),(23,' Ortus 50 S',NULL,NULL),(24,' Pausat',NULL,NULL),(25,' Pirat',NULL,NULL),(26,' Potenza Sino',NULL,NULL),(27,' Potenza Sinon Plus 36 E',NULL,NULL),(28,' Propargite Fersol 720 E',NULL,NULL),(29,' Sanmite E',NULL,NULL),(30,' Sumirody 30',NULL,NULL),(31,' Trigger 240 S',NULL,NULL),(32,' Veromit',NULL,NULL),(33,'Vertimec 18 EC   Abamectin Prentis',NULL,NULL),(69,'A',NULL,NULL);
+INSERT INTO `Produto` VALUES (1,' Abadin 72 EC ',2,2),(2,'Abamectin Nortox',2,2),(3,'  Abamectin Prentis',2,2),(6,' Abamex Max',2,2),(7,' Acarige',2,2),(8,' Acarit EC',2,2),(9,' Adver 240 S',2,2),(10,' Azamax',0,0),(11,' Borea',2,2),(12,' Clorfenapir Nortox',2,2),(13,' DalNeem E',2,2),(14,' Danimen 300 E',2,2),(15,' Devamectin 18 E',2,2),(16,' Epime',2,2),(17,' Fujimite 50 S',2,2),(18,' Kumulus DF',0,0),(19,' Matrine/Biophora/Oxymatrine ',2,2),(20,' Meothrin 30',2,2),(21,' MilbekNoc',2,2),(22,' Omite 720 E',2,2),(23,' Ortus 50 S',2,2),(24,' Pausat',2,2),(25,' Pirat',2,2),(26,' Potenza Sino',2,2),(27,' Potenza Sinon Plus 36 E',2,2),(28,' Propargite Fersol 720 E',2,2),(29,' Sanmite E',2,2),(30,' Sumirody 30',2,2),(31,' Trigger 240 S',2,2),(32,' Veromit',2,2),(33,'Vertimec 18 EC   Abamectin Prentis',2,2),(69,'A',2,2);
 /*!40000 ALTER TABLE `Produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -480,7 +480,7 @@ CREATE TABLE `TipoCultivar` (
 
 LOCK TABLES `TipoCultivar` WRITE;
 /*!40000 ALTER TABLE `TipoCultivar` DISABLE KEYS */;
-INSERT INTO `TipoCultivar` VALUES (11,'Cabrillo'),(12,'San Andreas'),(13,'Albion'),(14,'Monterey'),(15,'Portola'),(16,'Aromas');
+INSERT INTO `TipoCultivar` VALUES (12,'San Andreas'),(13,'Albion'),(14,'Monterey');
 /*!40000 ALTER TABLE `TipoCultivar` ENABLE KEYS */;
 UNLOCK TABLES;
 
