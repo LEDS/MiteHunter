@@ -103,6 +103,7 @@ IA_PATH = 'IA'
 STATIC_URL  = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', IA_PATH, 'images_input')
+MEDIA_PATH = os.path.join(BASE_DIR, '..', IA_PATH, 'images_processed')
 MEDIA_URL  = '/media/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'screens/static')]
