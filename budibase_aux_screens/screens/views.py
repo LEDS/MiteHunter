@@ -30,6 +30,7 @@ def main(request, c_id):
 def images_view(request, cod_sample):
     imgDir = os.path.join(settings.MEDIA_PATH, cod_sample)
     imgNames = [f for f in os.listdir(imgDir) if os.path.isfile(os.path.join(imgDir, f))]
+    imgNames.sort()
 
     for i in range(len(imgNames)):
         imgNames[i] = os.path.join('media', (os.path.basename(cod_sample)), imgNames[i])
